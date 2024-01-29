@@ -9,7 +9,7 @@ const routes: Routes = [
     {
         path: 'pages', component: AppLayoutComponent, canActivate: [authGuard],
         children: [
-            { path: '' , component: HomeComponent},
+            { path: '', loadChildren: () => import('./pages-authorized/pages-authorized.module').then((m) => m.PagesAuthorizedModule)},
             { path: 'root' , component: HomeComponent, canActivate: [authGuard], data: {roles: [Role.ROLE_ROOT]}},
         ]
     },

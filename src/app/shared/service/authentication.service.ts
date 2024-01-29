@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { catchError, lastValueFrom, map } from 'rxjs';
@@ -20,8 +19,7 @@ export class AuthenticationService {
 
     constructor(
         private http: HttpClient,
-        private jwtHelper: JwtHelperService,
-        private router: Router
+        private jwtHelper: JwtHelperService
     ) {
         this.oauthTokenUrl = `${environment.apiURLBase}/auth/signin`;
         this.oauthRefreshTokenUrl = `${environment.apiURLBase}/auth/refresh`;
@@ -62,11 +60,8 @@ export class AuthenticationService {
         const headers = new HttpHeaders()
             .append("Authorization", `Basic ${this.basicToken}`);
 
-        const body = "grant_type=refresh_token";
-
-
         return lastValueFrom(
-            this.http.post(this.oauthRefreshTokenUrl, { headers }).pipe(
+            this.http.put(this.oauthRefreshTokenUrl, { headers }).pipe(
                 map((response: any) => {
                     this.blockUI.stop();
                     this.storeToken(response["access_token"]);
@@ -81,7 +76,7 @@ export class AuthenticationService {
         );
     }
 
-    haveAnyPermission(roles: any) {
+    haveAnyPermission(roles: string[]) {
         for (const role of roles) {
             if (this.havePermission(role)) {
                 return true;
@@ -104,7 +99,7 @@ export class AuthenticationService {
     }
 
     havePermission(permissao: string) {
-        return (this.jwtPayload && this.jwtPayload.roles.includes(permissao));
+        return this.getJwtPayload()?.roles?.includes(permissao);
     }
 
     isInvalidAccessToken() {
@@ -124,5 +119,12 @@ export class AuthenticationService {
     private storeToken(token: string) {
         sessionStorage.setItem("token", token);
         this.jwtPayload = this.jwtHelper.decodeToken(token);
+    }
+
+    private getJwtPayload(){
+        if(!this.jwtPayload){
+            this.jwtPayload = this.jwtHelper.decodeToken(sessionStorage.getItem('token'));
+        }
+        return this.jwtPayload;
     }
 }
