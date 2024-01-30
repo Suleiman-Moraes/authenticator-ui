@@ -32,7 +32,7 @@ export class PersonListComponent {
 
     list: any[] = [];
 
-    constructor(private productService: ProductService) {}
+    constructor(private productService: ProductService) { }
 
     ngOnInit() {
         this.productService.getProducts().then((data) => {
@@ -54,5 +54,11 @@ export class PersonListComponent {
 
             return event.order * result;
         });
+    }
+
+    onInputSearch(event: any) {
+        if (event.key == 'Enter') {
+            alert("teste");
+        }
     }
 }

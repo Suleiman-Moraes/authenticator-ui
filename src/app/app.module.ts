@@ -1,5 +1,5 @@
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
 import { BlockUIModule } from 'ng-block-ui';
 import { ConfirmationService } from 'primeng/api';
@@ -14,6 +14,7 @@ import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { ProductService } from './demo/service/product.service';
 import { AppLayoutModule } from './layout/app.layout.module';
+import { HandleError } from './shared/handle-error/handle-error';
 
 export function tokenGetter(): string | null {
     return sessionStorage.getItem('token');
@@ -39,6 +40,10 @@ export function tokenGetter(): string | null {
     ],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
+        {
+            provide: ErrorHandler,
+            useClass: HandleError
+        },
         CountryService,
         CustomerService,
         EventService,
@@ -50,4 +55,4 @@ export function tokenGetter(): string | null {
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
