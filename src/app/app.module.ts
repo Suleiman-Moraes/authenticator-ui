@@ -1,8 +1,8 @@
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
 import { BlockUIModule } from 'ng-block-ui';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
@@ -40,10 +40,8 @@ export function tokenGetter(): string | null {
     ],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
-        {
-            provide: ErrorHandler,
-            useClass: HandleError
-        },
+        MessageService,
+        HandleError,
         CountryService,
         CustomerService,
         EventService,

@@ -4,26 +4,22 @@ import { RouterModule } from '@angular/router';
 import { SortEvent } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputTextModule } from 'primeng/inputtext';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
-import { ToolbarModule } from 'primeng/toolbar';
 import { ProductService } from 'src/app/demo/service/product.service';
+import { ListTableHeadComponent } from 'src/app/shared/components/list-table-head/list-table-head.component';
 
 @Component({
     selector: 'app-person-list',
     standalone: true,
     imports: [
+        ListTableHeadComponent,
         CommonModule,
-        ToolbarModule,
         CardModule,
-        ButtonModule,
-        InputTextModule,
         RouterModule,
-        InputGroupModule,
-        InputGroupAddonModule,
-        TableModule
+        TableModule,
+        PaginatorModule,
+        ButtonModule
     ],
     templateUrl: './person-list.component.html',
     styleUrl: './person-list.component.scss'
@@ -31,16 +27,22 @@ import { ProductService } from 'src/app/demo/service/product.service';
 export class PersonListComponent {
 
     list: any[] = [];
+    rows = 30;
+    totalRecords = 150;
+    loading = true;
 
     constructor(private productService: ProductService) { }
 
     ngOnInit() {
         this.productService.getProducts().then((data) => {
             this.list = data;
+            this.loading = false;
         });
     }
 
     customSort(event: SortEvent) {
+        console.log(event);
+
         event.data.sort((data1, data2) => {
             let value1 = data1[event.field];
             let value2 = data2[event.field];
@@ -56,9 +58,16 @@ export class PersonListComponent {
         });
     }
 
-    onInputSearch(event: any) {
-        if (event.key == 'Enter') {
-            alert("teste");
-        }
+    pageChange(event: PaginatorState) {
+        this.loading = true;
+        setTimeout(() => {
+            this.loading = false;
+        }, 3000);
+        console.log(event);
+        this.rows = event.rows;
+    }
+
+    serach(event: string) {
+        alert(event);
     }
 }
