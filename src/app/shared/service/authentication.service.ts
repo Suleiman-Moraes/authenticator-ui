@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { catchError, lastValueFrom, map } from 'rxjs';
@@ -19,7 +20,8 @@ export class AuthenticationService {
 
     constructor(
         private http: HttpClient,
-        private jwtHelper: JwtHelperService
+        private jwtHelper: JwtHelperService,
+        private router: Router
     ) {
         this.oauthTokenUrl = `${environment.apiURLBase}/auth/signin`;
         this.oauthRefreshTokenUrl = `${environment.apiURLBase}/auth/refresh`;
@@ -41,6 +43,7 @@ export class AuthenticationService {
                 map((response: any) => {
                     this.blockUI.stop();
                     this.storeToken(response["access_token"]);
+                    sessionStorage.setItem("refresh_token", response["refresh_token"]);
                     Promise.resolve();
                 }),
                 catchError((response) => {
@@ -57,11 +60,15 @@ export class AuthenticationService {
     }
 
     getNewAccessToken(): Promise<void> {
+        if(!sessionStorage.getItem('refresh_token')){
+            this.router.navigate(["/login"]);
+            Promise.reject('Invalid refresh token.');
+        }
         const headers = new HttpHeaders()
-            .append("Authorization", `Basic ${this.basicToken}`);
+            .append("Authorization", `Bearer ${sessionStorage.getItem('refresh_token')}`);
 
         return lastValueFrom(
-            this.http.put(this.oauthRefreshTokenUrl, { headers }).pipe(
+            this.http.put(this.oauthRefreshTokenUrl, null, { headers }).pipe(
                 map((response: any) => {
                     this.blockUI.stop();
                     this.storeToken(response["access_token"]);
@@ -70,6 +77,7 @@ export class AuthenticationService {
                 catchError((response) => {
                     this.blockUI.stop();
                     console.error("Erro ao renovar token.", response);
+                    this.router.navigate(["/login"]);
                     return Promise.reject(response);
                 })
             )

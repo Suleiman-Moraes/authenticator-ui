@@ -4,43 +4,7 @@
             <app-list-table-head (serach-text)="serach($event)" title="Listagem de pessoas" />
             <br>
             <p-card>
-                <p-table [value]="list" responsiveLayout="stack" styleClass="p-datatable-striped" [loading]="loading"
-                    (sortFunction)="customSort($event)" [customSort]="true">
-                    <ng-template pTemplate="header" let-columns>
-                        <tr>
-                            <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon>
-                            </th>
-                            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
-                            </th>
-                            <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
-                            <th pSortableColumn="quantity">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
-                            <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon>
-                            </th>
-                            <th>Ações</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-element let-columns="columns">
-                        <tr>
-                            <td><span class="p-column-title">Code</span>{{ element.code }}</td>
-                            <td><span class="p-column-title">Name</span>{{ element.name }}</td>
-                            <td><span class="p-column-title">Category</span>{{ element.category }}</td>
-                            <td><span class="p-column-title">Quantity</span>{{ element.quantity }}</td>
-                            <td><span class="p-column-title">Price</span>{{ element.price | currency: 'BRL'}}</td>
-                            <td><span class="p-column-title">Ações</span>
-                                <button pButton icon="pi pi-check" type="button" title="Enable"
-                                    class="p-button-success mr-2"></button>
-                                <button pButton icon="pi pi-times" type="button" title="Disable"
-                                    class="p-button-danger mr-2"></button>
-                                <button pButton icon="pi pi-trash" type="button" title="Delete"
-                                    class="p-button-danger mr-2"></button>
-                                <button pButton icon="pi pi-pencil" type="button" title="Edit" class="mr-2"></button>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-                <p-paginator currentPageReportTemplate="{first} - {last} / {totalRecords}" [rows]="rows"
-                    [rowsPerPageOptions]="[5, 10, 20, 30, 50, 100, 200]" [showCurrentPageReport]="true"
-                    [totalRecords]="totalRecords" (onPageChange)="pageChange($event)" />
+                <app-list-table-body [page]="page" (table-change)="pageChange($event)" [loading]="loading" />
             </p-card>
         </p-card>
     </div>

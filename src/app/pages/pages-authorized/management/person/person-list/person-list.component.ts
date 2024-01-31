@@ -1,25 +1,18 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { SortEvent } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { PaginatorModule, PaginatorState } from 'primeng/paginator';
-import { TableModule } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
+import { ListTableBodyComponent } from 'src/app/shared/components/list-table-body/list-table-body.component';
 import { ListTableHeadComponent } from 'src/app/shared/components/list-table-head/list-table-head.component';
+import { Filter } from 'src/app/shared/model/default/filter';
+import { Page } from 'src/app/shared/model/default/page';
 
 @Component({
     selector: 'app-person-list',
     standalone: true,
     imports: [
         ListTableHeadComponent,
-        CommonModule,
-        CardModule,
-        RouterModule,
-        TableModule,
-        PaginatorModule,
-        ButtonModule
+        ListTableBodyComponent,
+        CardModule
     ],
     templateUrl: './person-list.component.html',
     styleUrl: './person-list.component.scss'
@@ -27,6 +20,10 @@ import { ListTableHeadComponent } from 'src/app/shared/components/list-table-hea
 export class PersonListComponent {
 
     list: any[] = [];
+    list0: any[] = [];
+    list1: any[] = [];
+    list2: any[] = [];
+    page: Page<any> = {};
     rows = 30;
     totalRecords = 150;
     loading = true;
@@ -36,35 +33,38 @@ export class PersonListComponent {
     ngOnInit() {
         this.productService.getProducts().then((data) => {
             this.list = data;
+            this.list0 = data.splice(0, 10);
+            this.list1 = data.splice(0, 10);
+            this.list2 = data;
+            this.page = {
+                content: this.list0,
+                totalElements: 30,
+                size: 10,
+                pageable: {
+                    offset: 0,
+                }
+            };
             this.loading = false;
         });
     }
 
-    customSort(event: SortEvent) {
-        console.log(event);
-
-        event.data.sort((data1, data2) => {
-            let value1 = data1[event.field];
-            let value2 = data2[event.field];
-            let result = null;
-
-            if (value1 == null && value2 != null) result = -1;
-            else if (value1 != null && value2 == null) result = 1;
-            else if (value1 == null && value2 == null) result = 0;
-            else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2);
-            else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
-
-            return event.order * result;
-        });
-    }
-
-    pageChange(event: PaginatorState) {
+    pageChange(event: Filter) {
         this.loading = true;
+        console.log(event);
+        switch (event.page) {
+            case 0:
+                this.page.content = this.list0;
+                break;
+            case 1:
+                this.page.content = this.list1;
+                break;
+            default:
+                this.page.content = this.list2;
+                break;
+        }
         setTimeout(() => {
             this.loading = false;
-        }, 3000);
-        console.log(event);
-        this.rows = event.rows;
+        }, 1000);
     }
 
     serach(event: string) {

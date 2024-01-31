@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
@@ -14,7 +15,8 @@ import { FormValidations } from '../../validator/form-validations';
         InputGroupModule,
         InputTextModule,
         ToolbarModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        RouterModule
     ],
     templateUrl: './list-table-head.component.html',
     styleUrl: './list-table-head.component.scss'
