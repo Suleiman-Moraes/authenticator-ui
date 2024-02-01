@@ -29,6 +29,10 @@ export class ListTableBodyComponent {
         this.loading = false;
     }
     @Input() loading: boolean;
+    @Input('att-and-col') attAndCol: any = {};
+    @Input('col-pipes') colPipes: any = {};
+    @Input('is-delete') isDelete: boolean = false;
+    @Input('enable-disable') enableDisable: boolean = false;
     @Output('table-change') tableChangeEvent: EventEmitter<Filter> = new EventEmitter<Filter>();
 
     filter: Filter = {};
@@ -41,26 +45,35 @@ export class ListTableBodyComponent {
         return this._page;
     }
 
+    get entries(): any[] {
+        return this.attAndCol ? Object.entries(this.attAndCol) : [];
+    }
+
+    get singlePage(): boolean {
+        return this.page?.totalPages == 1;
+    }
+
     customSort(event: SortEvent) {
-        this.filter.property = event.field;
-        this.filter.direction = event.order > 0 ? Direction.ASC : Direction.DESC;
-        this.tableChangeEvent.emit(this.filter);
+        if (this.singlePage) {
+            event.data.sort((data1, data2) => {
+                let value1 = data1[event.field];
+                let value2 = data2[event.field];
+                let result = null;
 
-        /**
-         * event.data.sort((data1, data2) => {
-            let value1 = data1[event.field];
-            let value2 = data2[event.field];
-            let result = null;
+                if (value1 == null && value2 != null) result = -1;
+                else if (value1 != null && value2 == null) result = 1;
+                else if (value1 == null && value2 == null) result = 0;
+                else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2);
+                else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
 
-            if (value1 == null && value2 != null) result = -1;
-            else if (value1 != null && value2 == null) result = 1;
-            else if (value1 == null && value2 == null) result = 0;
-            else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2);
-            else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
-
-            return event.order * result;
-        });
-         */
+                return event.order * result;
+            });
+        }
+        else {
+            this.filter.property = event.field;
+            this.filter.direction = event.order > 0 ? Direction.ASC : Direction.DESC;
+            this.tableChangeEvent.emit(this.filter);
+        }
     }
 
     pageChange(event: PaginatorState) {

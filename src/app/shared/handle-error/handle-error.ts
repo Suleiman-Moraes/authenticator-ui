@@ -15,7 +15,8 @@ export class HandleError implements ErrorHandler {
         private messageService: MessageService
     ) { }
 
-    handleError(error: Error | HttpErrorResponse) {
+    handleError(error: any) {
+        alert(error);
         if (error instanceof TypeError) {
             console.log(error);
         }

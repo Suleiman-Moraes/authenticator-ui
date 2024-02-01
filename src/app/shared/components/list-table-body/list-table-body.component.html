@@ -2,35 +2,46 @@
     (sortFunction)="customSort($event)" [customSort]="true">
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon>
+            @for (entry of entries; track $index) {
+            <th [pSortableColumn]="entry[0]">{{ entry[1] }}
+                <p-sortIcon [field]="entry[0]"></p-sortIcon>
             </th>
-            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
-            </th>
-            <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
-            <th pSortableColumn="quantity">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
-            <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon>
-            </th>
+            }
             <th>Ações</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-element let-columns="columns">
         <tr>
-            <td><span class="p-column-title">Code</span>{{ element.code }}</td>
-            <td><span class="p-column-title">Name</span>{{ element.name }}</td>
-            <td><span class="p-column-title">Category</span>{{ element.category }}</td>
-            <td><span class="p-column-title">Quantity</span>{{ element.quantity }}</td>
-            <td><span class="p-column-title">Price</span>{{ element.price | currency: 'BRL'}}</td>
+            @for (entry of entries; track $index) {
+                @switch (colPipes[entry[0]]) {
+                    @case ('currency') {
+                        <td><span class="p-column-title">{{ entry[1] }}</span>{{ element[entry[0]] | currency: 'BRL' }}</td>
+                    }
+                    @default {
+                        <td><span class="p-column-title">{{ entry[1] }}</span>{{ element[entry[0]] }}</td>
+                    }
+                }
+
+            }
             <td><span class="p-column-title">Ações</span>
-                <button pButton icon="pi pi-check" type="button" title="Enable" class="p-button-success mr-2"></button>
-                <button pButton icon="pi pi-times" type="button" title="Disable" class="p-button-danger mr-2"></button>
-                <button pButton icon="pi pi-trash" type="button" title="Delete" class="p-button-danger mr-2"></button>
+                @if (enableDisable) {
+                    <button pButton icon="pi pi-check" type="button" title="Enable" class="p-button-success mr-2"></button>
+                    <button pButton icon="pi pi-times" type="button" title="Disable" class="p-button-danger mr-2"></button>
+                }
+                @if (isDelete) {
+                    <button pButton icon="pi pi-trash" type="button" title="Delete" class="p-button-danger mr-2"></button>
+                }
                 <button pButton icon="pi pi-pencil" type="button" title="Edit" class="mr-2"></button>
             </td>
         </tr>
     </ng-template>
 </p-table>
-@if (!page.empty) {
-<p-paginator currentPageReportTemplate="{first} - {last} / {totalRecords}" [rows]="page.size"
-    [rowsPerPageOptions]="[5, 10, 20, 30, 50, 100, 200]" [showCurrentPageReport]="true"
-    [totalRecords]="page.totalElements" [first]="page.pageable?.offset" (onPageChange)="pageChange($event)" />
+@if (!page.empty && !singlePage) {
+    <p-paginator currentPageReportTemplate="{first} - {last} / {totalRecords}" [rows]="page.size"
+        [rowsPerPageOptions]="[5, 10, 20, 30, 50, 100, 200]" [showCurrentPageReport]="true"
+        [totalRecords]="page.totalElements" [first]="page.pageable?.offset" (onPageChange)="pageChange($event)" />
+}
+@else {
+    <br>
+    Total {{ page.totalElements ?? 0 }}
 }

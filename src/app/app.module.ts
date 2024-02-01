@@ -1,5 +1,5 @@
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
 import { BlockUIModule } from 'ng-block-ui';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -41,7 +41,7 @@ export function tokenGetter(): string | null {
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         MessageService,
-        HandleError,
+        { provide: ErrorHandler, useClass: HandleError },
         CountryService,
         CustomerService,
         EventService,
