@@ -16,7 +16,6 @@ export class HandleError implements ErrorHandler {
     ) { }
 
     handleError(error: any) {
-        alert(error);
         if (error instanceof TypeError) {
             console.log(error);
         }

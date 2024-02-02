@@ -1,4 +1,5 @@
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
 import { BlockUIModule } from 'ng-block-ui';
@@ -15,6 +16,7 @@ import { PhotoService } from './demo/service/photo.service';
 import { ProductService } from './demo/service/product.service';
 import { AppLayoutModule } from './layout/app.layout.module';
 import { HandleError } from './shared/handle-error/handle-error';
+import { authInterceptor } from './shared/interceptor/auth.interceptor';
 
 export function tokenGetter(): string | null {
     return sessionStorage.getItem('token');
@@ -42,6 +44,7 @@ export function tokenGetter(): string | null {
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         MessageService,
         { provide: ErrorHandler, useClass: HandleError },
+        provideHttpClient(withInterceptors([authInterceptor])),
         CountryService,
         CustomerService,
         EventService,

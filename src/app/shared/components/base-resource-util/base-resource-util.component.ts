@@ -4,6 +4,7 @@ import { EventEmitter, Injector } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { BlockUI, NgBlockUI } from "ng-block-ui";
 import { ConfirmationService, MessageService } from "primeng/api";
+import { HandleError } from "../../handle-error/handle-error";
 import { AuthenticationService } from "../../service/authentication.service";
 
 export abstract class BaseResourceUtilComponent {
@@ -12,12 +13,14 @@ export abstract class BaseResourceUtilComponent {
 
     @BlockUI()
     blockUI!: NgBlockUI;
+    loading: boolean = false;
 
     protected location: Location;
     protected formBuilder: FormBuilder;
     protected confirmationService: ConfirmationService;
     protected authenticationService: AuthenticationService;
     protected messageService: MessageService;
+    protected handleError: HandleError;
 
     imaskCpfCnpj = {
         mask: [
@@ -38,6 +41,7 @@ export abstract class BaseResourceUtilComponent {
         this.confirmationService = this.injector.get(ConfirmationService);
         this.authenticationService = this.injector.get(AuthenticationService);
         this.messageService = this.injector.get(MessageService);
+        this.handleError = injector.get(HandleError);
     }
 
     yesNotEnum = {
@@ -99,34 +103,6 @@ export abstract class BaseResourceUtilComponent {
     }
 
     //PRIVATES METHODS
-    protected tratarErro(err: any): void {
-        if (typeof err === 'string') {
-            this.showError(err);
-        }
-        else if (err instanceof HttpErrorResponse
-            && err.status >= 400 && err.status <= 499) {
-            if (err.status == 401) {
-                this.errorServer();
-            }
-            else if (err.status == 403) {
-                this.showError('Operação não autorizada.');
-            }
-            else {
-                try {
-                    if (err?.error?.messages?.length > 0) {
-                        err.error.messages.forEach((er: any) => this.showError(er));
-                    }
-                } catch (e) { }
-            }
-        }
-        else {
-            this.errorServer();
-        }
-        console.log(err);
-        console.error('Ocorreu um erro', err);
-        this.posTratarErro();
-    }
-
     protected errorServer(): void {
         this.showError('Ocorreu um erro ao processar a sua solicitação.');
     }
@@ -193,36 +169,61 @@ export abstract class BaseResourceUtilComponent {
         }
     }
 
-    protected doSimpleRequest(metodo: any, atributo: string, func: any): void {
+    protected doSomething(metodo: any, successCallBack?: any, withoutHandleError = false, errorCallBack?: any): void {
         metodo.subscribe(
-            (responseApi: any) => {
-                if (responseApi != null) {
-                    this[atributo] = responseApi;
-                    if (func != null) {
-                        func();
+            {
+                next(res: any) {
+                    this.loading = false;
+                    if (this.blockUI) {
+                        this.blockUI.stop();
+                    }
+                    if (successCallBack != null) {
+                        successCallBack(res);
+                    }
+                },
+                error: (error: any) => {
+                    this.loading = false;
+                    if (this.blockUI) {
+                        this.blockUI.stop();
+                    }
+                    if (errorCallBack != null) {
+                        errorCallBack(error);
+                    }
+                    if (!withoutHandleError) {
+                        this.handleError.handleError(error);
                     }
                 }
-            }, (err: any) => {
-                this.tratarErro(err);
             }
         );
     }
 
-    protected getSomething(metodo: any, atributo: string, func?: any): void {
-        metodo.subscribe((res: any) => {
-            this[atributo] = res;
-            if (func != null) {
-                func();
+    /**
+     * Perform a simple request, with the option of calls for success and error, but it will not call the error handle itself nor set the loading controls to false
+     *
+     * @param {any} metodo - the method to perform
+     * @param {string} field - optional field to update with the result
+     * @param {any} successCallBack - callback function for successful execution
+     * @param {any} errorCallBack - callback function for error handling
+     * @return {void}
+     */
+    protected doSomethingSimple(metodo: any, field?: string, successCallBack?: any, errorCallBack?: any): void {
+        metodo.subscribe(
+            {
+                next(res: any) {
+                    if (field) {
+                        this[field] = res;
+                    }
+                    if (successCallBack != null) {
+                        successCallBack(res);
+                    }
+                },
+                error: (error: any) => {
+                    if (errorCallBack != null) {
+                        errorCallBack(error);
+                    }
+                }
             }
-        });
-    }
-
-    protected doSomething(metodo: any, func?: any): void {
-        metodo.subscribe((res: any) => {
-            if (func != null) {
-                func(res);
-            }
-        });
+        );
     }
 
     protected showError(detail: string) {
@@ -255,26 +256,7 @@ export abstract class BaseResourceUtilComponent {
     }
 
     protected handleCatchError(err: any) {
-        this.blockUI.stop();
-        if (typeof err === 'string') {
-            this.showError(err);
-        }
-        else if (err instanceof HttpErrorResponse
-            && err.status >= 400 && err.status <= 499) {
-            if (err.status == 401) {
-                const erro = err?.error?.error_description;
-                this.showError(erro ? erro : 'Operação não autorizada.');
-            }
-            else if (err.status == 403) {
-                this.showError('Operação não autorizada.');
-            }
-            else {
-                this.showErrors(err);
-            }
-        }
-        else {
-            this.errorServidor();
-        }
+        this.handleError.handleError(err);
     }
 
     protected errorServidor(): void {
@@ -289,7 +271,4 @@ export abstract class BaseResourceUtilComponent {
             }
         } catch (e) { }
     }
-
-    //OPICIONAIS
-    protected posTratarErro(): void {/* This is intentional */ }
 }

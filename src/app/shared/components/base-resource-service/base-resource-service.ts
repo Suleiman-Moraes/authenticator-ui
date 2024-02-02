@@ -37,7 +37,7 @@ export abstract class BaseResourceService {
         if (filter) {
             for (const key in filter) {
                 if (filter[key]) {
-                    params.append(key, filter[key]);
+                    params = params.append(key, filter[key]);
                 }
             }
         }

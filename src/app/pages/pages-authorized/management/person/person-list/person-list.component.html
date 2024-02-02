@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="grid">
     <div class="col-12">
         <p-card [style]="{ 'border-radius': '12px' }">
@@ -5,7 +6,7 @@
             <br>
             <p-card>
                 <app-list-table-body [page]="page" (table-change)="pageChange($event)" [loading]="loading"
-                    [att-and-col]="map" [col-pipes]="colPipes"/>
+                    [att-and-col]="map"/>
             </p-card>
         </p-card>
     </div>

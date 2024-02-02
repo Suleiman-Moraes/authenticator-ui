@@ -1,7 +1,6 @@
 import { Component, Injector, OnInit } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
-import { HandleError } from "../../handle-error/handle-error";
 import { Filter } from "../../model/default/filter";
 import { Page } from "../../model/default/page";
 import { BaseResourceService } from "../base-resource-service/base-resource-service";
@@ -12,7 +11,6 @@ import { BaseResourceUtilComponent } from "../base-resource-util/base-resource-u
 })
 export abstract class BaseResourceListComponent extends BaseResourceUtilComponent implements OnInit {
 
-    loading: boolean = false;
     router: Router;
     isAddParamUrl: boolean = true;
     page: Page<any> = {
@@ -26,7 +24,6 @@ export abstract class BaseResourceListComponent extends BaseResourceUtilComponen
     }
     protected titleService: Title;
     protected route: ActivatedRoute;
-    protected handleError: HandleError;
 
     constructor(
         injector: Injector,
@@ -36,7 +33,6 @@ export abstract class BaseResourceListComponent extends BaseResourceUtilComponen
         this.router = this.injector.get(Router);
         this.route = this.injector.get(ActivatedRoute);
         this.titleService = injector.get(Title);
-        this.handleError = injector.get(HandleError);
     }
 
     ngOnInit(): void {
@@ -44,9 +40,17 @@ export abstract class BaseResourceListComponent extends BaseResourceUtilComponen
     }
 
     pageChange(event: Filter) {
-        this.filter = {
-            page: event.page,
-            size: event.size
+        if(event.page || 0 == event.page){
+            this.filter.page = event.page;
+        }
+        if(event.size){
+            this.filter.size = event.size;
+        }
+        if(event.direction){
+            this.filter.direction = event.direction;
+        }
+        if(event.property){
+            this.filter.property = event.property;
         }
         this.findAll(this.filter);
     }
@@ -57,15 +61,9 @@ export abstract class BaseResourceListComponent extends BaseResourceUtilComponen
 
     protected findAll(filter: Filter) {
         this.loading = true;
-        this.resourceService.findAll(filter).subscribe(
-            (res: Page<any>) => {
-                this.page = res;
-                this.loading = false;
-            },
-            (error) => {
-                this.loading = false;
-                this.handleError.handleError(error);
-            }
-        );
+        this.doSomething(this.resourceService.findAll(filter), (res: Page<any>) => this.page = res);
+        setTimeout(() => {
+            this.loading = false;
+        }, 5000);
     }
 }

@@ -59,7 +59,7 @@ export class AuthenticationService {
         );
     }
 
-    getNewAccessToken(): Promise<void> {
+    getNewAccessToken(): Promise<any> {
         if(!sessionStorage.getItem('refresh_token')){
             this.router.navigate(["/login"]);
             Promise.reject('Invalid refresh token.');
@@ -72,7 +72,7 @@ export class AuthenticationService {
                 map((response: any) => {
                     this.blockUI.stop();
                     this.storeToken(response["access_token"]);
-                    Promise.resolve();
+                    return Promise.resolve();
                 }),
                 catchError((response) => {
                     this.blockUI.stop();

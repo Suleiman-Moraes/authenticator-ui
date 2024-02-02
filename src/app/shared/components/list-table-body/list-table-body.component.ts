@@ -36,6 +36,8 @@ export class ListTableBodyComponent {
     @Output('table-change') tableChangeEvent: EventEmitter<Filter> = new EventEmitter<Filter>();
 
     filter: Filter = {};
+    private property = '***';
+    private direction = 0;
 
     private _page: Page<any> = {
         empty: true
@@ -54,6 +56,11 @@ export class ListTableBodyComponent {
     }
 
     customSort(event: SortEvent) {
+        if (this.property == event.field && this.direction == event.order) {
+            return;
+        }
+        this.property = event.field;
+        this.direction = event.order;
         if (this.singlePage) {
             event.data.sort((data1, data2) => {
                 let value1 = data1[event.field];
@@ -70,8 +77,8 @@ export class ListTableBodyComponent {
             });
         }
         else {
-            this.filter.property = event.field;
-            this.filter.direction = event.order > 0 ? Direction.ASC : Direction.DESC;
+            this.filter.property = this.property;
+            this.filter.direction = this.direction > 0 ? Direction.ASC : Direction.DESC;
             this.tableChangeEvent.emit(this.filter);
         }
     }
