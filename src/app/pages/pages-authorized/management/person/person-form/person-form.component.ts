@@ -18,4 +18,6 @@ import { FormHeadComponent } from 'src/app/shared/components/form-head/form-head
 })
 export class PersonFormComponent {
 
+    complement = 'person';
+
 }

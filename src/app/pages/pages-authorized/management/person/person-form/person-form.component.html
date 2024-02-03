@@ -2,13 +2,13 @@
 <div class="grid">
     <div class="col-12">
         <p-card [style]="{ 'border-radius': '12px' }">
-            <app-form-head complement="person" title="Adicionar Pessoa"/>
+            <app-form-head [complement]="complement" title="Adicionar Pessoa"/>
             <br>
             <p-card>
 
             </p-card>
             <br>
-            <app-form-footer/>
+            <app-form-footer [complement]="complement"/>
         </p-card>
     </div>
 </div>
