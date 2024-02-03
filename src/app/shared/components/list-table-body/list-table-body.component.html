@@ -31,7 +31,7 @@
                 @if (isDelete) {
                     <button pButton icon="pi pi-trash" type="button" title="Delete" class="p-button-danger mr-2"></button>
                 }
-                <button pButton icon="pi pi-pencil" type="button" title="Edit" class="mr-2"></button>
+                <button pButton icon="pi pi-pencil" type="button" title="Edit" class="mr-2" [routerLink]="['edit', element.key]"></button>
             </td>
         </tr>
     </ng-template>

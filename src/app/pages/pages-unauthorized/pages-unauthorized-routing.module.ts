@@ -4,13 +4,13 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-    { path: '', component: LoginComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'forgot', component: ForgotPasswordComponent },
+    { path: '', title: 'Login', component: LoginComponent },
+    { path: 'login', title: 'Login', component: LoginComponent },
+    { path: 'forgot', title: 'Forgot Password', component: ForgotPasswordComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
 export class PagesUnauthorizedRoutingModule { }

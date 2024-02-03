@@ -32,6 +32,6 @@ export class PersonListComponent extends BaseResourceListComponent{
         injector: Injector,
         private personService: PersonService
     ) {
-        super(injector, personService);
+        super(injector, personService, 'PersonListComponent');
     }
 }

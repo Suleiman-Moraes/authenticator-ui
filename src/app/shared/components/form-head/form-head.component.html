@@ -1,0 +1,12 @@
+<p-toolbar [style]="{ 'border-radius': '12px'  }">
+    <div class="p-toolbar-group-start">
+        <h3 class="color-primary"><strong>{{ title }}</strong></h3>
+    </div>
+    <div class="p-toolbar-group-center">
+    </div>
+    <div class="p-toolbar-group-end">
+        <button pButton icon="pi pi-home" type="button" title="Home" class="mr-2" routerLink="/pages"></button>
+        <button pButton icon="pi pi-list" type="button" title="List" class="mr-2" [routerLink]="['/pages', complement]"></button>
+        <button pButton icon="pi pi-save" type="button" class="p-button-success" title="Save"></button>
+    </div>
+</p-toolbar>

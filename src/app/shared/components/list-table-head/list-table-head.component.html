@@ -5,6 +5,8 @@
     <div class="p-toolbar-group-center">
         <form [formGroup]="form">
             <p-inputGroup>
+                <button type="button" pButton icon="pi pi-replay" title="Clear" (click)="clear()"
+                    [disabled]="disabledClear"></button>
                 <input type="text" formControlName="searchText" pInputText placeholder="Search"
                     (keypress)="onInputSearch($event)" />
                 <button type="button" pButton icon="pi pi-search" title="Search" (click)="serach()"
