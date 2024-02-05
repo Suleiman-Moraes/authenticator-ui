@@ -27,6 +27,9 @@ export class FormFieldErrorComponent {
         if (this.form?.errors?.required) {
             return "Dado Obrigatório";
         }
+        if (this.form?.errors?.withoutSpace) {
+            return "Dado Obrigatório";
+        }
         else if (this.form?.errors?.maxlength) {
             const requiredLenght = this.form?.errors?.maxlength.requiredLength;
             return `Deve ter no máximo ${requiredLenght} caracteres`;

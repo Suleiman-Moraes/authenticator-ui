@@ -4,6 +4,7 @@ import { EventEmitter, Injector } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { BlockUI, NgBlockUI } from "ng-block-ui";
 import { ConfirmationService, MessageService } from "primeng/api";
+import { Observable } from "rxjs";
 import { HandleError } from "../../handle-error/handle-error";
 import { AuthenticationService } from "../../service/authentication.service";
 
@@ -169,7 +170,7 @@ export abstract class BaseResourceUtilComponent {
         }
     }
 
-    protected doSomething(metodo: any, successCallBack?: any, withoutHandleError = false, errorCallBack?: any): void {
+    protected doSomething(metodo: Observable<any>, successCallBack?: any, withoutHandleError = false, errorCallBack?: any): void {
         metodo.subscribe(
             {
                 next(res: any) {

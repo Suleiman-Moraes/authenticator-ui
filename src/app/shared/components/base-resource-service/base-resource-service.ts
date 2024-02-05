@@ -26,6 +26,23 @@ export abstract class BaseResourceService {
         return this.getUtil(`${this.apiPath}/${id}`);
     }
 
+    sendForm(resource: any, metodo: boolean): Observable<any> {
+        return metodo ? this.update(resource) : this.create(resource);
+    }
+
+    create(resource: any): Observable<any> {
+        return this.http.post(this.apiPath, resource).pipe(
+            map((res: any) => res)
+        )
+    }
+
+    update(resource: any, id?: any): Observable<any> {
+        id = id ? id : resource.id;
+        return this.http.put(`${this.apiPath}/${id}`, resource).pipe(
+            map((res: any) => res)
+        );
+    }
+
     protected getUtil(url: string): Observable<any> {
         return this.http.get(url).pipe(
             map((res: any) => res)
