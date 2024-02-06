@@ -5,8 +5,12 @@
     <div class="p-toolbar-group-center">
     </div>
     <div class="p-toolbar-group-end">
-        <button pButton icon="pi pi-home" type="button" title="Home" class="mr-2" routerLink="/pages"></button>
-        <button pButton icon="pi pi-list" type="button" title="List" class="mr-2" [routerLink]="['/pages', complement]"></button>
-        <button pButton icon="pi pi-save" type="button" class="p-button-success" title="Save"></button>
+        <p-confirmPopup></p-confirmPopup>
+        <button pButton icon="pi pi-home" type="button" title="Home" class="mr-2"
+            (click)="callConfirmPopupOut($event, '/pages')"></button>
+        <button pButton icon="pi pi-list" type="button" title="List" class="mr-2"
+            (click)="callConfirmPopupOut($event, '/pages', complement)"></button>
+        <button pButton icon="pi pi-save" type="button" class="p-button-success" title="Save"
+            (click)="callConfirmPopupSave($event)"></button>
     </div>
 </p-toolbar>

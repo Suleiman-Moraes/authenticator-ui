@@ -1,6 +1,6 @@
-import { Injector } from "@angular/core";
+import { inject } from "@angular/core";
 import { Title } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Filter } from "../../model/default/filter";
 import { Page } from "../../model/default/page";
 import { BaseResourceService } from "../base-resource-service/base-resource-service";
@@ -8,7 +8,6 @@ import { BaseResourceUtilComponent } from "../base-resource-util/base-resource-u
 
 export abstract class BaseResourceListComponent extends BaseResourceUtilComponent {
 
-    router: Router;
     isAddParamUrl: boolean = true;
     page: Page<any> = {
         empty: true
@@ -19,18 +18,14 @@ export abstract class BaseResourceListComponent extends BaseResourceUtilComponen
         size: 5,
         page: 0
     }
-    protected titleService: Title;
-    protected route: ActivatedRoute;
+    protected titleService: Title = inject(Title);
+    protected route: ActivatedRoute = inject(ActivatedRoute);
 
     constructor(
-        injector: Injector,
         private resourceService: BaseResourceService,
         private componentName: string
     ) {
-        super(injector);
-        this.router = this.injector.get(Router);
-        this.route = this.injector.get(ActivatedRoute);
-        this.titleService = injector.get(Title);
+        super();
 
         this.findAllFirst();
     }

@@ -1,4 +1,4 @@
-import { AfterContentChecked, Component, Injector, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, OnInit } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
 import { BaseResourceFormComponent } from 'src/app/shared/components/base-resource-form/base-resource-form.component';
@@ -22,10 +22,9 @@ import { PersonService } from 'src/app/shared/service/person.service';
 export class PersonFormComponent extends BaseResourceFormComponent implements OnInit, AfterContentChecked {
 
     constructor(
-        injector: Injector,
         protected service: PersonService
     ) {
-        super(injector, service);
+        super(service);
     }
 
     ngOnInit(): void {

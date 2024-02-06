@@ -1,7 +1,8 @@
 import { Location } from "@angular/common";
 import { HttpErrorResponse } from "@angular/common/http";
-import { EventEmitter, Injector } from "@angular/core";
+import { EventEmitter, inject } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import { BlockUI, NgBlockUI } from "ng-block-ui";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { Observable } from "rxjs";
@@ -16,12 +17,13 @@ export abstract class BaseResourceUtilComponent {
     blockUI!: NgBlockUI;
     loading: boolean = false;
 
-    protected location: Location;
-    protected formBuilder: FormBuilder;
-    protected confirmationService: ConfirmationService;
-    protected authenticationService: AuthenticationService;
-    protected messageService: MessageService;
-    protected handleError: HandleError;
+    protected location: Location = inject(Location);
+    protected formBuilder: FormBuilder = inject(FormBuilder);
+    protected confirmationService: ConfirmationService = inject(ConfirmationService);
+    protected authenticationService: AuthenticationService  = inject(AuthenticationService);
+    protected messageService: MessageService = inject(MessageService);
+    protected handleError: HandleError = inject(HandleError);
+    protected router: Router = inject(Router);
 
     imaskCpfCnpj = {
         mask: [
@@ -32,17 +34,6 @@ export abstract class BaseResourceUtilComponent {
                 mask: "00.000.000/0000-00"
             }
         ]
-    }
-
-    constructor(
-        protected injector: Injector
-    ) {
-        this.location = this.injector.get(Location);
-        this.formBuilder = this.injector.get(FormBuilder);
-        this.confirmationService = this.injector.get(ConfirmationService);
-        this.authenticationService = this.injector.get(AuthenticationService);
-        this.messageService = this.injector.get(MessageService);
-        this.handleError = injector.get(HandleError);
     }
 
     yesNotEnum = {
@@ -87,9 +78,9 @@ export abstract class BaseResourceUtilComponent {
 
     callConfirmPopup(event: Event, accept: any, message: string = 'Tem certeza de que deseja prosseguir?', reject?: any, icon: string = 'pi pi-exclamation-triangle'): void {
         this.confirmationService.confirm({
-            acceptIcon: 'pi pi-check',
+            acceptIcon: 'pi pi-check mr-1',
+            rejectIcon: 'pi pi-times mr-1',
             acceptLabel: 'Sim',
-            rejectIcon: 'pi pi-time',
             rejectLabel: 'Não',
             target: event.target,
             message: message,
@@ -101,6 +92,14 @@ export abstract class BaseResourceUtilComponent {
                 }
             }
         });
+    }
+
+    callConfirmPopupOut(event: Event, ...route: string[]): void {
+        this.callConfirmPopup(event, () => this.router.navigate(route), 'Tem certeza de que deseja sair?');
+    }
+
+    callConfirmPopupSave(event: Event): void {
+        this.callConfirmPopup(event, () => this.afterCallConfirmSaveSuccess(), 'Confirma os dados informados?');
     }
 
     //PRIVATES METHODS
@@ -272,4 +271,6 @@ export abstract class BaseResourceUtilComponent {
             }
         } catch (e) { }
     }
+
+    protected afterCallConfirmSaveSuccess(): void {}
 }

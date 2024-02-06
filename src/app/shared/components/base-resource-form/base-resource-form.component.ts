@@ -1,6 +1,6 @@
-import { Injector } from "@angular/core";
+import { inject } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { BaseResourceService } from "../base-resource-service/base-resource-service";
 import { BaseResourceUtilComponent } from "../base-resource-util/base-resource-util.component";
 
@@ -13,18 +13,12 @@ export abstract class BaseResourceFormComponent extends BaseResourceUtilComponen
     resource: any;
     detail: boolean = false;
 
-    protected route: ActivatedRoute;
-    protected router: Router;
+    protected route: ActivatedRoute = inject(ActivatedRoute);
 
     constructor(
-        injector: Injector,
         protected resourceService: BaseResourceService
     ) {
-        super(injector);
-        this.route = this.injector.get(ActivatedRoute);
-        this.router = this.injector.get(Router);
-
-
+        super();
     }
 
     get hasKey(): boolean {
