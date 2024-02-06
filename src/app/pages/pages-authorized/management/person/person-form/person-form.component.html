@@ -2,13 +2,23 @@
 <div class="grid">
     <div class="col-12">
         <p-card [style]="{ 'border-radius': '12px' }">
-            <app-form-head [complement]="complement" [title]="pageTitle"/>
+            <app-form-head [complement]="complement" [title]="pageTitle" />
             <br>
             <p-card>
-
+                <div class="grid formgrid">
+                    <app-input class="col-12 md:col-6" for-name="name" name="Nome" [form]="form">
+                    </app-input>
+                </div>
+                <div class="grid formgrid">
+                    <app-input class="col-12 md:col-4" for-name="name" name="Nome" [form]="form">
+                    </app-input>
+                </div>
+                <app-input-template for-name="name" name="Nome" [form]="form">
+                    Susu Monstrão Periculoso
+                </app-input-template>
             </p-card>
             <br>
-            <app-form-footer [complement]="complement"/>
+            <app-form-footer [complement]="complement" />
         </p-card>
     </div>
 </div>
