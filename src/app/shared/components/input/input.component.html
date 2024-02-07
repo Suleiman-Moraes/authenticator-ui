@@ -2,12 +2,12 @@
     <app-input-template [for-name]="forName" [name]="name" [form]="form">
         @if (mask) {
         <p-inputMask [placeholder]="name" [title]="name" [id]="forName" [formControlName]="forName"
-            styleClass="cssInput" [mask]="mask" [unmask]="true" [disabled]="disabled" [autoClear]="autoClear"
-            slotChar=" " (onBlur)="onBlur($event)"></p-inputMask>
+            styleClass="cssInput" [mask]="mask" [unmask]="true" [autoClear]="autoClear" slotChar=" "
+            (onBlur)="onBlur($event)"></p-inputMask>
         }
         @else {
         <input placeholder="{{ name }}" title="{{ name }}" type="text" pInputText [id]="forName"
-            [formControlName]="forName" class="cssInput" (blur)="onBlur($event)" [disabled]="disabled">
+            [formControlName]="forName" class="cssInput" (blur)="onBlur($event)" [maxlength]="maxlength">
         }
     </app-input-template>
 </form>

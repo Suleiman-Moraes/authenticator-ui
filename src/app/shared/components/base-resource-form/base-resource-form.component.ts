@@ -26,19 +26,19 @@ export abstract class BaseResourceFormComponent extends BaseResourceUtilComponen
     }
 
     submitForm(): void {
-        this.blockUI.start();
+        // this.blockUI.start();
         this.markAllAsTouchedAndAsDirty(this.form);
         this.beforeSubmitForm();
         this.resource = this.form.value;
-        this.resourceService.sendForm(this.resource, (this.resource.id != null && this.resource.id > 0)).subscribe(
-            responseApi => {
-                this.blockUI.stop();
-                this.handleResponseSubimit(responseApi);
-            }, err => {
-                this.blockUI.stop();
-                this.handleError.handleError(err);
-            }
-        );
+        // this.resourceService.sendForm(this.resource, (this.resource.id != null && this.resource.id > 0)).subscribe(
+        //     responseApi => {
+        //         this.blockUI.stop();
+        //         this.handleResponseSubimit(responseApi);
+        //     }, err => {
+        //         this.blockUI.stop();
+        //         this.handleError.handleError(err);
+        //     }
+        // );
     }
 
     //PRIVATES METHODS

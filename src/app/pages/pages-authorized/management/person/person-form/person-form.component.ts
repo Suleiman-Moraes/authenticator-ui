@@ -42,8 +42,6 @@ export class PersonFormComponent extends BaseResourceFormComponent implements On
 
     protected initForm(): void {
         this.form = PersonDTO.createFormGroup(this.formBuilder);
-        console.log(this.form);
-
     }
 
     protected override createPageTitle(): string {

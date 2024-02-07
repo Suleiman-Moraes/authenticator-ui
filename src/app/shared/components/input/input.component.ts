@@ -24,7 +24,7 @@ export class InputComponent {
     @Input() mask: string | null = null;
     @Input() imask: any = null;
     @Input('auto-clear') autoClear: boolean = true;
-    @Input() disabled: boolean = false;
+    @Input() maxlength: number = null;
 
     @Output('blur') blur: EventEmitter<any> = new EventEmitter<any>();
 

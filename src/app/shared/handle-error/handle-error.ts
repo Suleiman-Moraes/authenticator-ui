@@ -44,6 +44,7 @@ export class HandleError implements ErrorHandler {
                 }
             }
             else {
+                console.error(error);
                 this.showError('Ocorreu um erro, tente novamente mais tarde!');
             }
         }

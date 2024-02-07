@@ -10,8 +10,8 @@ import { FormFieldErrorComponent } from '../form-field-error/form-field-error.co
     ],
     template: `
     <div class="field">
-        <label [for]="forName" id="label-of-{{forName}}">
-            <strong>{{ name }}</strong>
+        <label [for]="forName" id="label-of-{{forName}}" class="block text-900 text-lg font-medium">
+            {{ name }}
         </label>
         <ng-content></ng-content>
         @if (form) {
