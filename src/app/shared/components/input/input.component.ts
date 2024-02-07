@@ -29,6 +29,7 @@ export class InputComponent {
     @Output('blur') blur: EventEmitter<any> = new EventEmitter<any>();
 
     onBlur(event: any): void {
+        this.form.get(this.forName)?.markAsDirty();
         this.blur.emit(event);
     }
 }
