@@ -13,14 +13,16 @@
                         <div class="flex flex-column gap-2 mb-5">
                             <label for="username1" class="block text-900 text-xl font-medium mb-2">Username</label>
                             <input id="username1" type="text" placeholder="Username" pInputText
-                                formControlName="username" class="w-full md:w-30rem input-username" maxlength="150">
+                                formControlName="username" class="w-full md:w-30rem input-username" maxlength="150"
+                                (keypress)="onInputEnter($event)">
                             <app-form-field-error [form]="form.get('username')"></app-form-field-error>
                         </div>
 
                         <div class="flex flex-column gap-2 mb-5">
                             <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
                             <p-password id="password1" formControlName="password" placeholder="Password"
-                                [toggleMask]="true" inputStyleClass="w-full p-3 md:w-30rem" maxLength="30"></p-password>
+                                [toggleMask]="true" inputStyleClass="w-full p-3 md:w-30rem" maxLength="30"
+                                (keypress)="onInputEnter($event)"></p-password>
                             <app-form-field-error [form]="form.get('password')"></app-form-field-error>
                         </div>
                     </form>

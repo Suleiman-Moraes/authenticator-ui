@@ -73,4 +73,10 @@ export class LoginComponent extends BaseResourceUtilComponent {
             this.blockUI.stop();
         }
     }
+
+    onInputEnter(event: any) {
+        if (event.key == 'Enter') {
+            this.logInto();
+        }
+    }
 }
