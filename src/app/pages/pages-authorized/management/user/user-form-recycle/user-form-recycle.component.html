@@ -1,0 +1,14 @@
+<form [formGroup]="form">
+    <div class="grid formgrid">
+        <app-input class="col-12 md:col-6" for-name="username" name="Login" [form]="form" maxlength="150">
+        </app-input>
+        @if (showPassword) {
+        <app-input-template for-name="password" name="Senha" [form]="form" class="col-12 md:col-6">
+            <p-password placeholder="Senha" title="Senha" type="text" id="password" formControlName="password"
+                (blur)="onBlur('password')" maxlength="30" [toggleMask]="true" [style]="{'width':'100%'}"
+                inputStyleClass="cssInput" />
+        </app-input-template>
+        }
+        <app-profile-select class="col-12 md:col-6"></app-profile-select>
+    </div>
+</form>

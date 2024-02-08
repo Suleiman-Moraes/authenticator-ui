@@ -25,6 +25,14 @@ export abstract class BaseResourceFormComponent extends BaseResourceUtilComponen
         return this.resource && this.resource.id && this.resource.id > 0;
     }
 
+    get isNew(): boolean {
+        return this.currentAction && this.currentAction == 'new';
+    }
+
+    get isEdit(): boolean {
+        return this.currentAction && this.currentAction == 'edit';
+    }
+
     submitForm(): void {
         // this.blockUI.start();
         this.markAllAsTouchedAndAsDirty(this.form);
