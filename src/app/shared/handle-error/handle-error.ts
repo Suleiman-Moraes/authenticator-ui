@@ -2,6 +2,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { ErrorHandler, Injectable } from "@angular/core";
 import { BlockUI, NgBlockUI } from "ng-block-ui";
 import { MessageService } from "primeng/api";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +18,9 @@ export class HandleError implements ErrorHandler {
 
     handleError(error: any) {
         if (error instanceof TypeError) {
-            console.log(error);
+            if(environment.envName == 'DEV') {
+                console.error(error);
+            }
         }
         else {
             this.blockUI.stop();
@@ -31,8 +34,11 @@ export class HandleError implements ErrorHandler {
                 }
                 else {
                     try {
-                        if (error?.error?.messages?.length > 0) {
-                            error.error.messages.forEach((er: any) => this.showError(er));
+                        if(environment.envName == 'DEV') {
+                            console.error(error);
+                        }
+                        if (error?.error?.userMessages?.length > 0) {
+                            error.error.userMessages.forEach((er: any) => this.showError(er));
                         }
                         else if (error?.error?.message) {
                             this.showError(error?.error?.message)

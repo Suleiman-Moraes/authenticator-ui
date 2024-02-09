@@ -1,0 +1,9 @@
+<form [formGroup]="form">
+    <app-input-template [for-name]="forName" [name]="name" [form]="form">
+        <p-dropdown [options]="itens" [placeholder]="name" [showClear]="true" [filter]="true"
+            emptyFilterMessage="Nenhum registro encontrado" emptyMessage="Nenhum registro encontrado" [id]="forName"
+            [formControlName]="forName" [style]="{'width':'100%', 'padding':'3.5px'}"
+            (onChange)="selectionChange($event)" [title]="name" (onBlur)="onBlur($event)">
+        </p-dropdown>
+    </app-input-template>
+</form>

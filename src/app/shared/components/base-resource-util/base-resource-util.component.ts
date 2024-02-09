@@ -206,13 +206,10 @@ export abstract class BaseResourceUtilComponent {
      * @param {any} errorCallBack - callback function for error handling
      * @return {void}
      */
-    protected doSomethingSimple(metodo: any, field?: string, successCallBack?: any, errorCallBack?: any): void {
+    protected doSomethingSimple(metodo: Observable<any>, successCallBack?: any, errorCallBack?: any): void {
         metodo.subscribe(
             {
                 next(res: any) {
-                    if (field) {
-                        this[field] = res;
-                    }
                     if (successCallBack != null) {
                         successCallBack(res);
                     }

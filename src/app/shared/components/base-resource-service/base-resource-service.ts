@@ -36,9 +36,9 @@ export abstract class BaseResourceService {
         )
     }
 
-    update(resource: any, id?: any): Observable<any> {
-        id = id ? id : resource.id;
-        return this.http.put(`${this.apiPath}/${id}`, resource).pipe(
+    update(resource: any, key?: any): Observable<any> {
+        key = key ? key : resource.key;
+        return this.http.put(`${this.apiPath}/${key}`, resource).pipe(
             map((res: any) => res)
         );
     }

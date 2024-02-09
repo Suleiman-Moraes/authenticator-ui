@@ -18,7 +18,7 @@
                         <td><span class="p-column-title">{{ entry[1] }}</span>{{ element[entry[0]] | currency: 'BRL' }}</td>
                     }
                     @default {
-                        <td><span class="p-column-title">{{ entry[1] }}</span>{{ element[entry[0]] }}</td>
+                        <td><span class="p-column-title">{{ entry[1] }}</span>{{ element[entry[0]] || '-' }}</td>
                     }
                 }
 

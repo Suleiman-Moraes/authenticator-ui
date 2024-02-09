@@ -4,6 +4,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
 import { BlockUIModule } from 'ng-block-ui';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
@@ -38,7 +39,8 @@ export function tokenGetter(): string | null {
             config: {
                 tokenGetter
             }
-        })
+        }),
+        ToastModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },

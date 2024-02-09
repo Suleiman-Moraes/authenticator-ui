@@ -1,5 +1,6 @@
 import { AfterContentChecked, Component, OnInit } from '@angular/core';
 import { CardModule } from 'primeng/card';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { BaseResourceFormComponent } from 'src/app/shared/components/base-resource-form/base-resource-form.component';
 import { FormFooterComponent } from 'src/app/shared/components/form-footer/form-footer.component';
@@ -18,7 +19,8 @@ import { UserFormRecycleComponent } from '../../user/user-form-recycle/user-form
         FormHeadComponent,
         FormFooterComponent,
         InputComponent,
-        UserFormRecycleComponent
+        UserFormRecycleComponent,
+        ConfirmDialogModule
     ],
     templateUrl: './person-form.component.html',
     styleUrl: './person-form.component.scss'
@@ -50,5 +52,9 @@ export class PersonFormComponent extends BaseResourceFormComponent implements On
 
     protected override editionPageTitle(): string {
         return 'Alterar Pessoa';
+    }
+
+    protected override afterSubmitFormSuccess(): void {
+        this.openConfirmDialogAfterSave();
     }
 }

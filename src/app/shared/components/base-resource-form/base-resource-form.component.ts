@@ -22,7 +22,7 @@ export abstract class BaseResourceFormComponent extends BaseResourceUtilComponen
     }
 
     get hasKey(): boolean {
-        return this.resource && this.resource.id && this.resource.id > 0;
+        return this.resource && this.resource.key && this.resource.key > 0;
     }
 
     get isNew(): boolean {
@@ -34,19 +34,58 @@ export abstract class BaseResourceFormComponent extends BaseResourceUtilComponen
     }
 
     submitForm(): void {
-        // this.blockUI.start();
+        this.blockUI.start();
         this.markAllAsTouchedAndAsDirty(this.form);
+        if (!this.verifyForm()) {
+            this.blockUI.stop();
+            return;
+        }
         this.beforeSubmitForm();
+        const key = this.resource?.key;
         this.resource = this.form.value;
-        // this.resourceService.sendForm(this.resource, (this.resource.id != null && this.resource.id > 0)).subscribe(
-        //     responseApi => {
-        //         this.blockUI.stop();
-        //         this.handleResponseSubimit(responseApi);
-        //     }, err => {
-        //         this.blockUI.stop();
-        //         this.handleError.handleError(err);
-        //     }
-        // );
+        this.resource.key = key
+        this.resourceService.sendForm(this.resource, (this.resource.key != null && this.resource.key > 0)).subscribe(
+            responseApi => {
+                this.blockUI.stop();
+                this.handleResponseSubimit(responseApi);
+            }, err => {
+                this.blockUI.stop();
+                this.handleError.handleError(err);
+            }
+        );
+    }
+
+    openConfirmDialogAfterSave(): void {
+        this.confirmationService.confirm({
+            key: 'confirmAfterSave',
+            message: `Registro ${this.currentAction == 'new' ? 'inserido' : 'atualizado'} com sucesso!`,
+            header: 'Confirmação',
+            icon: 'pi pi-check-circle',
+            acceptLabel: 'Novo',
+            rejectLabel: 'Listagem',
+            acceptIcon: 'pi pi-plus mr-2',
+            rejectIcon: 'pi pi-list mr-2',
+            acceptButtonStyleClass: 'p-button',
+            rejectButtonStyleClass: 'p-button',
+            accept: () => {
+                if (this.currentAction == 'edit') {
+                    this.router.navigate(['../../new'], { relativeTo: this.route });
+                }
+                else {
+                    this.initForm();
+                }
+            },
+            reject: () => {
+                switch (this.currentAction) {
+                    case 'edit':
+                        this.router.navigate(['../../'], { relativeTo: this.route });
+                        break;
+                    default:
+                        this.router.navigate(['../'], { relativeTo: this.route });
+                        break;
+                }
+            }
+        });
     }
 
     //PRIVATES METHODS
@@ -65,10 +104,11 @@ export abstract class BaseResourceFormComponent extends BaseResourceUtilComponen
 
     protected loadResource(): void {
         if (this.currentAction == 'edit') {
-            let id: any = this.route.snapshot.params['key'];
-            if (id) {
-                this.doSomething(this.resourceService.findById(Number(id)), (res: any) => {
+            let key: any = this.route.snapshot.params['key'];
+            if (key) {
+                this.doSomething(this.resourceService.findById(Number(key)), (res: any) => {
                     this.resource = res;
+                    this.resource.key = key;
                     this.patchValue();
                 });
             }
@@ -91,11 +131,9 @@ export abstract class BaseResourceFormComponent extends BaseResourceUtilComponen
 
     protected handleResponseSubimit(responseApi: any): void {
         if (responseApi != null) {
-            this.resource = responseApi;
-            this.form.get('id')?.setValue(this.resource.id);
-            this.beforePatchValue();
+            this.resource.key = responseApi;
+            this.form.get('key')?.setValue(responseApi);
             this.afterSubmitFormSuccess();
-            this.form.patchValue(this.resource);
         }
     }
 
@@ -124,6 +162,15 @@ export abstract class BaseResourceFormComponent extends BaseResourceUtilComponen
 
     protected afterContentChecked() {
         this.setPageTitle();
+    }
+
+    protected verifyForm(): boolean {
+        if (this.form.invalid) {
+            this.showError('Preencha os campos obrigatórios');
+            this.showError('Preencha os campos corretamente');
+            return false;
+        }
+        return true;
     }
 
     protected beforePatchValue(): void {/* This is intentional */ }
