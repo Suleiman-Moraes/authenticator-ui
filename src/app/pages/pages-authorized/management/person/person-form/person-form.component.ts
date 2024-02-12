@@ -5,10 +5,9 @@ import { ToastModule } from 'primeng/toast';
 import { BaseResourceFormComponent } from 'src/app/shared/components/base-resource-form/base-resource-form.component';
 import { FormFooterComponent } from 'src/app/shared/components/form-footer/form-footer.component';
 import { FormHeadComponent } from 'src/app/shared/components/form-head/form-head.component';
-import { InputComponent } from 'src/app/shared/components/input/input.component';
 import { PersonDTO } from 'src/app/shared/model/person/person-dto.model';
 import { PersonService } from 'src/app/shared/service/person.service';
-import { UserFormRecycleComponent } from '../../user/user-form-recycle/user-form-recycle.component';
+import { PersonFormRecycleComponent } from '../person-form-recycle/person-form-recycle.component';
 
 @Component({
     selector: 'app-person-form',
@@ -18,8 +17,7 @@ import { UserFormRecycleComponent } from '../../user/user-form-recycle/user-form
         ToastModule,
         FormHeadComponent,
         FormFooterComponent,
-        InputComponent,
-        UserFormRecycleComponent,
+        PersonFormRecycleComponent,
         ConfirmDialogModule
     ],
     templateUrl: './person-form.component.html',
