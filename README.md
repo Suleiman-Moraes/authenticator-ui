@@ -1,27 +1,34 @@
 # Authenticator UI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.4.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Development server
+## Overview
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This project is the front-end user interface for the Authenticator application. It provides authentication and authorization features for managing user access to resources.
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+To install this project, make sure you have Node.js and npm installed on your system. Then, clone this repository and run the following command:
 
-## Build
+```bash
+npm install
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Usage
+To start the development server, use the following command:
 
-## Running unit tests
+```
+npm start
+```
+This will run the application in development mode. Open http://localhost:4200 to view it in your browser.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Building
+To build the project for production, use the following command:
 
-## Running end-to-end tests
+```
+npm run build
+```
+This will build the project and generate the production files in the dist/ directory.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Contributing
+Contributions are welcome! Feel free to fork this repository and submit pull requests.
