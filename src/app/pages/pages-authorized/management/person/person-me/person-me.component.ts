@@ -50,6 +50,7 @@ export class PersonMeComponent extends BaseResourceUtilComponent implements OnIn
         }
         else {
             this.showError('Preencha todos os campos obrigatórios');
+            this.markAllAsTouchedAndAsDirty(this.form);
             this.blockUI.stop();
         }
     }

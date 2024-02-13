@@ -6,8 +6,14 @@
     </div>
     <div class="p-toolbar-group-end">
         <p-confirmPopup></p-confirmPopup>
+        @if (showLoginBtn) {
+        <button pButton icon="pi pi-sign-in" type="button" title="Login" class="mr-2"
+            (click)="callConfirmPopupOut($event, '/login')"></button>
+        }
+        @if (showHomeBtn) {
         <button pButton icon="pi pi-home" type="button" title="Home" class="mr-2"
             (click)="callConfirmPopupOut($event, '/pages')"></button>
+        }
         @if (showListBtn) {
         <button pButton icon="pi pi-list" type="button" title="List" class="mr-2"
             (click)="callConfirmPopupOut($event, '/pages', complement)"></button>

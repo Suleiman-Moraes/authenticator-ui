@@ -56,6 +56,6 @@ function containsUrlWithoutToken(url: string): boolean {
 }
 
 function containsUrlWithTokenBasic(url: string): boolean {
-    return url.includes('/user/me/password/reset');
+    return url.includes('/user/me/password/reset') || url.includes('/person/me/new');
 }
 

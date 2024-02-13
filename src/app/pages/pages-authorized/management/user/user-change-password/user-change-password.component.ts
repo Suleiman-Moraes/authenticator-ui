@@ -50,6 +50,7 @@ export class UserChangePasswordComponent extends BaseResourceUtilComponent imple
         }
         else {
             this.showError('Preencha todos os campos obrigatórios');
+            this.markAllAsTouchedAndAsDirty(this.form);
             this.blockUI.stop();
         }
     }
