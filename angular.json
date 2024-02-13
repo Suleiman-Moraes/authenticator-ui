@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "authenticator-ui-ng": {
+        "authenticator-ui": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -36,7 +36,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/authenticator-ui-ng",
+                        "outputPath": "dist/authenticator-ui",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": [
@@ -85,10 +85,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "buildTarget": "authenticator-ui-ng:build:production"
+                            "buildTarget": "authenticator-ui:build:production"
                         },
                         "development": {
-                            "buildTarget": "authenticator-ui-ng:build:development"
+                            "buildTarget": "authenticator-ui:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -96,7 +96,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "buildTarget": "authenticator-ui-ng:build"
+                        "buildTarget": "authenticator-ui:build"
                     }
                 },
                 "test": {
