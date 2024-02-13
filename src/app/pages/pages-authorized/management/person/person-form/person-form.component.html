@@ -2,7 +2,7 @@
 <p-confirmDialog key="confirmAfterSave"></p-confirmDialog>
 <div class="grid">
     <div class="col-12">
-        <p-card [style]="{ 'border-radius': '12px' }">
+        <p-card styleClass="cardForms">
             <app-form-head [complement]="complement" [title]="pageTitle" (save)="submitForm()" />
             <br>
             <app-person-form-recycle [form]="form" [show-password]="isNew"></app-person-form-recycle>
