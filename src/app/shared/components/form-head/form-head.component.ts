@@ -21,6 +21,7 @@ export class FormHeadComponent extends BaseResourceUtilComponent {
 
     @Input() title: string = 'Novo';
     @Input() complement: string = '';
+    @Input('show-list-btn') showListBtn: boolean = true;
 
     @Output('save') callEventSave: EventEmitter<boolean> = new EventEmitter<boolean>();
 

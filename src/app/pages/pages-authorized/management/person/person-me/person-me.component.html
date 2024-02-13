@@ -1,10 +1,10 @@
-<p-toast></p-toast>
 <div class="grid">
     <div class="col-12">
         <p-card styleClass="cardForms">
-            <app-person-form-recycle [form]="form" [show-password]="false"></app-person-form-recycle>
+            <app-form-head [show-list-btn]="false" title="Meu perfil" (save)="submitForm()" />
+            <br>
+            <app-person-form-recycle [form]="form" [show-password]="false" [show-profile-select]="isAdmin"></app-person-form-recycle>
+            <app-form-footer (save)="submitForm()" />
         </p-card>
     </div>
 </div>
-
-<pre>{{ form.value | json }}</pre>

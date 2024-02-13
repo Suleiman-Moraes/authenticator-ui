@@ -6,8 +6,7 @@
             <app-form-head [complement]="complement" [title]="pageTitle" (save)="submitForm()" />
             <br>
             <app-person-form-recycle [form]="form" [show-password]="isNew"></app-person-form-recycle>
-            <br>
-            <app-form-footer [complement]="complement" (save)="submitForm()" />
+            <app-form-footer (save)="submitForm()" />
         </p-card>
     </div>
 </div>

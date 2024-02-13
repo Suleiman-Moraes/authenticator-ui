@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { UserNewPasswordDTO } from '../model/user/user-new-password-dto.model';
 import { UserResetPasswordDTO } from '../model/user/user-reset-password-dto.model';
 import { UserResetPasswordTokenDTO } from '../model/user/user-reset-password-token-dto.model';
 
@@ -24,6 +25,12 @@ export class UserMeService {
 
     resetPasswordToken(resource: UserResetPasswordTokenDTO): Observable<void> {
         return this.http.patch(`${this.apiPath}/password/reset/token`, resource).pipe(
+            map((res: any) => res)
+        )
+    }
+
+    changePasswordMe(resource: UserNewPasswordDTO): Observable<void> {
+        return this.http.patch(`${this.apiPath}/password`, resource).pipe(
             map((res: any) => res)
         )
     }

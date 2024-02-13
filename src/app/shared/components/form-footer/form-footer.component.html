@@ -1,14 +1,10 @@
-<p-toolbar styleClass="cardForms">
-    <div class="p-toolbar-group-start">
-        <button pButton icon="pi pi-times" type="button" class="p-button-danger" title="Cancel"
-            (click)="callConfirmPopupOut($event, '/pages', complement)"></button>
-    </div>
-    <div class="p-toolbar-group-center">
-    </div>
-    <div class="p-toolbar-group-end">
-        <button pButton icon="pi pi-save" type="button" class="p-button-success" title="Save"
-            (click)="callConfirmPopupSave($event)">
-        </button>
-    </div>
-</p-toolbar>
 <p-confirmPopup></p-confirmPopup>
+<div class="grid">
+    <div class="col-12">
+        <div class="text-right">
+            <button pButton icon="pi pi-save" type="button" class="p-button-success" title="Save"
+                (click)="callConfirmPopupSave($event)">
+            </button>
+        </div>
+    </div>
+</div>

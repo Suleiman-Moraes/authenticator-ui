@@ -22,6 +22,7 @@ export class UserFormRecycleComponent {
 
     @Input() form: FormGroup;
     @Input('show-password') showPassword: boolean = true;
+    @Input('show-profile-select') showProfileSelect: boolean = true;
 
     onBlur(name: string): void {
         this.form.get(name)?.markAsDirty();

@@ -17,4 +17,5 @@ export class PersonFormRecycleComponent {
 
     @Input() form!: FormGroup;
     @Input('show-password') showPassword: boolean = true;
+    @Input('show-profile-select') showProfileSelect: boolean = true;
 }

@@ -8,8 +8,10 @@
         <p-confirmPopup></p-confirmPopup>
         <button pButton icon="pi pi-home" type="button" title="Home" class="mr-2"
             (click)="callConfirmPopupOut($event, '/pages')"></button>
+        @if (showListBtn) {
         <button pButton icon="pi pi-list" type="button" title="List" class="mr-2"
             (click)="callConfirmPopupOut($event, '/pages', complement)"></button>
+        }
         <button pButton icon="pi pi-save" type="button" class="p-button-success" title="Save"
             (click)="callConfirmPopupSave($event)"></button>
     </div>

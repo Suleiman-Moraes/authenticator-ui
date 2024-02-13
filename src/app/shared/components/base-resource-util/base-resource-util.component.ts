@@ -48,6 +48,10 @@ export abstract class BaseResourceUtilComponent {
         return this['yesNotEnumOptionsVar'];
     }
 
+    get isAdmin(): boolean {
+        return this.authenticationService.havePermission('ROLE_ADMIN');
+    }
+
     convertToNumber(string: string): number {
         return Number(string).valueOf()
     }
