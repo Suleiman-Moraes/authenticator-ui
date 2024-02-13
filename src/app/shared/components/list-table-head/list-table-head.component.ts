@@ -27,7 +27,7 @@ export class ListTableHeadComponent implements OnInit {
 
     @Output('serach-text') searchTextEvent: EventEmitter<string> = new EventEmitter<string>();
 
-    form: FormGroup;
+    form!: FormGroup;
     disabledClear: boolean = true;
 
     constructor(private formBuilder: FormBuilder) { }
@@ -47,14 +47,14 @@ export class ListTableHeadComponent implements OnInit {
     serach(): void {
         if (this.form.valid) {
             this.disabledClear = false;
-            this.form.get('searchText').setValue(this.form.value.searchText.trim());
+            this.form.get('searchText')?.setValue(this.form.value.searchText.trim());
             this.searchTextEvent.emit(this.form.value.searchText);
         }
     }
 
     clear(): void {
         this.disabledClear = true;
-        this.form.get('searchText').setValue('');
+        this.form.get('searchText')?.setValue('');
         this.searchTextEvent.emit(this.form.value.searchText);
     }
 }

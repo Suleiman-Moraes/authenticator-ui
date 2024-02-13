@@ -26,11 +26,21 @@ export abstract class BaseResourceFormComponent extends BaseResourceUtilComponen
     }
 
     get isNew(): boolean {
-        return this.currentAction && this.currentAction == 'new';
+        if (this.currentAction) {
+            return this.currentAction == 'new';
+        }
+        else {
+            return false;
+        }
     }
 
     get isEdit(): boolean {
-        return this.currentAction && this.currentAction == 'edit';
+        if (this.currentAction) {
+            return this.currentAction == 'edit';
+        }
+        else {
+            return false;
+        }
     }
 
     submitForm(): void {

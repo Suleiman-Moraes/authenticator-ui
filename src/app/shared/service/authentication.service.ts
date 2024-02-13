@@ -131,7 +131,8 @@ export class AuthenticationService {
 
     private getJwtPayload(){
         if(!this.jwtPayload){
-            this.jwtPayload = this.jwtHelper.decodeToken(sessionStorage.getItem('token'));
+            const token = sessionStorage.getItem('token');
+            this.jwtPayload = this.jwtHelper.decodeToken(token ? token : '');
         }
         return this.jwtPayload;
     }

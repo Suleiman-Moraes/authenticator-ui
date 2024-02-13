@@ -27,7 +27,7 @@ import { UserMeService } from 'src/app/shared/service/user-me.service';
 })
 export class ForgotPasswordComponent extends BaseResourceUtilComponent implements OnInit {
 
-    form: FormGroup;
+    form!: FormGroup;
 
     constructor(
         public layoutService: LayoutService,

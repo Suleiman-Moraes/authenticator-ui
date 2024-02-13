@@ -27,7 +27,7 @@ import { PersonFormRecycleComponent } from '../person-form-recycle/person-form-r
 export class PersonMeComponent extends BaseResourceUtilComponent implements OnInit {
 
     form!: FormGroup;
-    resource: PersonDTO;
+    resource!: PersonDTO;
 
     constructor(
         protected service: PersonMeService

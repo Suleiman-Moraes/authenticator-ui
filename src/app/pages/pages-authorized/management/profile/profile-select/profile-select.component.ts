@@ -26,7 +26,7 @@ export class ProfileSelectComponent extends BaseResourceUtilComponent implements
 
     ngOnInit(): void {
         this.doSomethingSimple(this.profileService.findAll({ property: 'description', direction: Direction.ASC }), (res: Page<KeyDescriptionDTO>) => {
-            this.profiles = res.content;
+            this.profiles = res.content ? res.content : [];
         });
     }
 }

@@ -36,7 +36,7 @@ export class LoginComponent extends BaseResourceUtilComponent {
 
     password!: string;
 
-    form: FormGroup;
+    form!: FormGroup;
 
     constructor(
         public layoutService: LayoutService,

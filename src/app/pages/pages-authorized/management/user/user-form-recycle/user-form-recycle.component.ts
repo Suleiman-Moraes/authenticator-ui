@@ -20,7 +20,7 @@ import { ProfileSelectComponent } from '../../profile/profile-select/profile-sel
 })
 export class UserFormRecycleComponent {
 
-    @Input() form: FormGroup;
+    @Input() form!: FormGroup;
     @Input('show-password') showPassword: boolean = true;
     @Input('show-profile-select') showProfileSelect: boolean = true;
 

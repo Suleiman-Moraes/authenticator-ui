@@ -27,7 +27,7 @@ import { UserMeService } from 'src/app/shared/service/user-me.service';
 })
 export class ResetPasswordComponent extends BaseResourceUtilComponent implements OnInit {
 
-    form: FormGroup;
+    form!: FormGroup;
 
     constructor(
         public layoutService: LayoutService,
@@ -39,7 +39,7 @@ export class ResetPasswordComponent extends BaseResourceUtilComponent implements
 
     ngOnInit(): void {
         this.form = UserResetPasswordTokenDTO.createFormGroup(this.formBuilder);
-        this.form.get('token').setValue(this.route.snapshot.params['token']);
+        this.form.get('token')?.setValue(this.route.snapshot.params['token']);
     }
 
     resetPasswordToken(): void {

@@ -46,7 +46,7 @@ export abstract class BaseResourceListComponent extends BaseResourceUtilComponen
         this.findAll(this.filter);
     }
 
-    serach(event: string) {
+    serach(event: string | null) {
         event = event ? event.trim() : null;
         this.filter.searchText = event;
         this.findAll(this.filter);

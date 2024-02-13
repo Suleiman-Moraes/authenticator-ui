@@ -28,7 +28,7 @@ export class ListTableBodyComponent {
         this._page = page;
         this.loading = false;
     }
-    @Input() loading: boolean;
+    @Input() loading!: boolean;
     @Input('att-and-col') attAndCol: any = {};
     @Input('col-pipes') colPipes: any = {};
     @Input('is-delete') isDelete: boolean = false;
@@ -59,12 +59,12 @@ export class ListTableBodyComponent {
         if (this.property == event.field && this.direction == event.order) {
             return;
         }
-        this.property = event.field;
-        this.direction = event.order;
+        this.property = event.field ?? '';
+        this.direction = event.order ?? 0;
         if (this.singlePage) {
-            event.data.sort((data1, data2) => {
-                let value1 = data1[event.field];
-                let value2 = data2[event.field];
+            event.data?.sort((data1, data2) => {
+                let value1 = data1[event.field ?? ''];
+                let value2 = data2[event.field ?? ''];
                 let result = null;
 
                 if (value1 == null && value2 != null) result = -1;
@@ -73,7 +73,7 @@ export class ListTableBodyComponent {
                 else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2);
                 else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
 
-                return event.order * result;
+                return (event.order ?? 0) * result;
             });
         }
         else {

@@ -6,5 +6,5 @@ export interface Filter {
     size?: number;
     direction?: Direction;
     property?: string;
-    searchText?: string;
+    searchText?: string | null;
 }

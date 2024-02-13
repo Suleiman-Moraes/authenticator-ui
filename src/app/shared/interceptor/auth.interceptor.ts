@@ -30,7 +30,7 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
     }
 };
 
-function setHeaders(request: HttpRequest<unknown>, token?: string): any {
+function setHeaders(request: HttpRequest<unknown>, token?: string | null): any {
     token = token ? token : sessionStorage.getItem('token');
     const cloned = request.clone({
         setHeaders: {
@@ -52,7 +52,7 @@ function setHeadersBasic(request: HttpRequest<unknown>, token?: string): any {
 
 function containsUrlWithoutToken(url: string): boolean {
     return url.includes('/auth/signin') || url.includes('/auth/refresh') ||
-        (sessionStorage.getItem('token') == null && this.urls.filter((u: string) => url.includes(u)).length > 0);
+        (sessionStorage.getItem('token') == null);
 }
 
 function containsUrlWithTokenBasic(url: string): boolean {

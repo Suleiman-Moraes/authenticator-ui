@@ -10,7 +10,6 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { TableModule } from 'primeng/table';
 import { Subscription, debounceTime } from 'rxjs';
 import { Product } from 'src/app/demo/api/product';
-import { DashboardsRoutingModule } from 'src/app/demo/components/dashboard/dashboard-routing.module';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 
@@ -25,8 +24,7 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
         TableModule,
         StyleClassModule,
         PanelMenuModule,
-        ButtonModule,
-        DashboardsRoutingModule
+        ButtonModule
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss'

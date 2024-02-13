@@ -5,21 +5,18 @@
         <span>SAKAI</span>
     </a>
 
-    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+    <button title="menubutton" type="button" #menubutton class="p-link layout-menu-button layout-topbar-button"
+        (click)="layoutService.onMenuToggle()">
         <i class="pi pi-bars"></i>
     </button>
 
-    <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button"
-        (click)="layoutService.showProfileSidebar()">
+    <button title="topbarmenubutton" type="button" #topbarmenubutton
+        class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
         <i class="pi pi-ellipsis-v"></i>
     </button>
 
     <div #topbarmenu class="layout-topbar-menu"
         [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
-        <button class="p-link layout-topbar-button">
-            <i class="pi pi-calendar"></i>
-            <span>Calendar</span>
-        </button>
         <button id="profile-btn" title="Profile" type="button" class="p-link layout-topbar-button"
             [routerLink]="'/pages/person/me'">
             <i class="pi pi-user"></i>

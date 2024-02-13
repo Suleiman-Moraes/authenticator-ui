@@ -28,7 +28,7 @@ import { PersonFormRecycleComponent } from '../../pages-authorized/management/pe
 export class PersonNewComponent extends BaseResourceUtilComponent implements OnInit {
 
     form!: FormGroup;
-    resource: PersonDTO;
+    resource!: PersonDTO;
 
     constructor(
         private service: PersonMeService

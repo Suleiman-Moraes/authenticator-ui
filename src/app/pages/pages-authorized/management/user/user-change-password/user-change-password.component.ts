@@ -28,7 +28,7 @@ import { UserMeService } from 'src/app/shared/service/user-me.service';
 export class UserChangePasswordComponent extends BaseResourceUtilComponent implements OnInit {
 
     form!: FormGroup;
-    resource: UserNewPasswordDTO;
+    resource!: UserNewPasswordDTO;
 
     constructor(
         protected service: UserMeService

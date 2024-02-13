@@ -36,18 +36,6 @@ export abstract class BaseResourceUtilComponent {
         ]
     }
 
-    yesNotEnum = {
-        S: 'Sim',
-        N: 'Não'
-    };
-
-    get yesNotEnumOptions(): Array<any> {
-        if (!this['yesNotEnumOptionsVar']) {
-            this['yesNotEnumOptionsVar'] = this.getTypes(this.yesNotEnum);
-        }
-        return this['yesNotEnumOptionsVar'];
-    }
-
     get isAdmin(): boolean {
         return this.authenticationService.havePermission('ROLE_ADMIN');
     }
@@ -80,7 +68,7 @@ export abstract class BaseResourceUtilComponent {
         return this.authenticationService.havePermission(role);
     }
 
-    callConfirmPopup(event: Event, accept: any, message: string = 'Tem certeza de que deseja prosseguir?', reject?: any, icon: string = 'pi pi-exclamation-triangle'): void {
+    callConfirmPopup(event: any, accept: any, message: string = 'Tem certeza de que deseja prosseguir?', reject?: any, icon: string = 'pi pi-exclamation-triangle'): void {
         this.confirmationService.confirm({
             acceptIcon: 'pi pi-check mr-1',
             rejectIcon: 'pi pi-times mr-1',
@@ -177,12 +165,14 @@ export abstract class BaseResourceUtilComponent {
         metodo.subscribe(
             {
                 next(res: any) {
+                    if (successCallBack != null) {
+                        successCallBack(res);
+                    }
+                },
+                complete: () => {
                     this.loading = false;
                     if (this.blockUI) {
                         this.blockUI.stop();
-                    }
-                    if (successCallBack != null) {
-                        successCallBack(res);
                     }
                 },
                 error: (error: any) => {
