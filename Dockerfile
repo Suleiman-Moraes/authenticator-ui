@@ -1,5 +1,5 @@
 # Estágio de compilação
-FROM node:18.13.0 AS build
+FROM node:20.11.0 AS build
 
 WORKDIR /app
 
