@@ -1,4 +1,3 @@
-# Estágio de compilação
 FROM node:20.11.0 AS build
 
 WORKDIR /app
@@ -7,9 +6,8 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-RUN npm run build
+RUN npm run build-prod
 
-# Estágio de produção
 FROM nginx:1.21.3-alpine
 
 COPY --from=build /app/dist/authenticator-ui /usr/share/nginx/html
