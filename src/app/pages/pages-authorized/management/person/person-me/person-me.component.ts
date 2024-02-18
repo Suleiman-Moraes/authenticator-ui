@@ -60,6 +60,7 @@ export class PersonMeComponent extends BaseResourceUtilComponent implements OnIn
     }
 
     private loadResource(): void {
+        this.blockUI.start();
         this.doSomething(this.service.getMe(), (res: PersonDTO) => {
             this.resource = res;
             this.form.patchValue(this.resource);

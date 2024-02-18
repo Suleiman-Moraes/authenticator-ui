@@ -54,15 +54,16 @@ export abstract class BaseResourceFormComponent extends BaseResourceUtilComponen
         const key = this.resource?.key;
         this.resource = this.form.value;
         this.resource.key = key
-        this.resourceService.sendForm(this.resource, (this.resource.key != null && this.resource.key > 0)).subscribe(
-            responseApi => {
+        this.resourceService.sendForm(this.resource, (this.resource.key != null && this.resource.key > 0)).subscribe({
+            next: (responseApi) => {
                 this.blockUI.stop();
                 this.handleResponseSubimit(responseApi);
-            }, err => {
+            },
+            error: (err) => {
                 this.blockUI.stop();
                 this.handleError.handleError(err);
             }
-        );
+        });
     }
 
     openConfirmDialogAfterSave(): void {
@@ -116,6 +117,7 @@ export abstract class BaseResourceFormComponent extends BaseResourceUtilComponen
         if (this.currentAction == 'edit') {
             let key: any = this.route.snapshot.params['key'];
             if (key) {
+                this.blockUI.start();
                 this.doSomething(this.resourceService.findById(Number(key)), (res: any) => {
                     this.resource = res;
                     this.resource.key = key;
