@@ -8,7 +8,7 @@ import { PersonMeComponent } from './person-me/person-me.component';
 
 const routes: Routes = [
     { path: '', component: PersonListComponent, title: 'Person List', canActivate: [authGuard], data: { roles: [Role.ROLE_ADMIN] } },
-    { path: 'me', component: PersonMeComponent, title: 'My Person', canActivate: [authGuard], data: { roles: [Role.ROLE_ADMIN] } },
+    { path: 'me', component: PersonMeComponent, title: 'My Person', canActivate: [authGuard] },
     { path: 'new', component: PersonFormComponent, title: 'New Person', canActivate: [authGuard], data: { roles: [Role.ROLE_ADMIN] } },
     { path: 'edit/:key', component: PersonFormComponent, title: 'Edit Person', canActivate: [authGuard], data: { roles: [Role.ROLE_ADMIN] } }
 ];
