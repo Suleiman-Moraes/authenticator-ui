@@ -6,7 +6,8 @@ import { UserChangePasswordComponent } from './management/user/user-change-passw
 const routes: Routes = [
     { path: '', title: 'Home', component: HomeComponent },
     { path: 'change-password', title: 'Change Password', component: UserChangePasswordComponent },
-    { path: 'person', loadChildren: () => import('./management/person/person.module').then((m) => m.PersonModule) }
+    { path: 'person', loadChildren: () => import('./management/person/person.module').then((m) => m.PersonModule) },
+    { path: 'prototype', loadChildren: () => import('./management/prototype/prototype.module').then((m) => m.PrototypeModule) }
 ];
 
 @NgModule({

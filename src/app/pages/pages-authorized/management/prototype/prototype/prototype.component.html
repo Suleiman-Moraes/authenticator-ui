@@ -1,0 +1,32 @@
+<p-toast></p-toast>
+<div class="grid">
+    <div class="col-12">
+        <p-card styleClass="cardForms">
+            <app-form-head [show-list-btn]="false" title="{{ 'Protótipo' | translate }}" />
+            <br>
+            <p-fieldset [toggleable]="true">
+                <ng-template pTemplate="header">
+                    <div class="flex align-items-center gap-2 px-2">
+                        <span class="font-bold">Informações</span>
+                        <i class="pi pi-info-circle"></i>
+                    </div>
+                </ng-template>
+                <div class="grid formgrid">
+                    <app-input-money class="col-12 md:col-4" for-name="value" name="Valor" [form]="form">
+                    </app-input-money>
+                    <app-input-money class="col-12 md:col-4" for-name="vpl" name="VPL" [form]="form">
+                    </app-input-money>
+                    <app-input-money class="col-12 md:col-4" for-name="valueMeters2" name="Valor do m²" [form]="form">
+                    </app-input-money>
+                    <app-input-number class="col-12 md:col-4" for-name="sizeMeters2" name="Tamanho m²" suffix=" m²"
+                        [use-grouping]="true" min-fraction-digits="2" max-fraction-digits="2" [form]="form">
+                    </app-input-number>
+                    <app-input-date class="col-12 md:col-4" for-name="date" name="Data da tabela" [form]="form">
+                    </app-input-date>
+                </div>
+            </p-fieldset>
+            <p-card>
+            </p-card>
+        </p-card>
+    </div>
+</div>
