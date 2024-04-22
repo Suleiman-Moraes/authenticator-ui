@@ -3,6 +3,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { EventEmitter, inject } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import { BlockUI, NgBlockUI } from "ng-block-ui";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { Observable } from "rxjs";
@@ -24,6 +25,7 @@ export abstract class BaseResourceUtilComponent {
     protected messageService: MessageService = inject(MessageService);
     protected handleError: HandleError = inject(HandleError);
     protected router: Router = inject(Router);
+    public translate: TranslateService = inject(TranslateService);
 
     imaskCpfCnpj = {
         mask: [

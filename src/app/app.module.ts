@@ -1,7 +1,9 @@
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BlockUIModule } from 'ng-block-ui';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
@@ -13,6 +15,10 @@ import { authInterceptor } from './shared/interceptor/auth.interceptor';
 
 export function tokenGetter(): string | null {
     return sessionStorage.getItem('token');
+}
+
+export function createTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -31,7 +37,15 @@ export function tokenGetter(): string | null {
                 tokenGetter
             }
         }),
-        ToastModule
+        ToastModule,
+        TranslateModule.forRoot({
+            defaultLanguage: 'pt',
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [HttpClient]
+            }
+        })
     ],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },

@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+    <app-input-template [for-name]="forName" [name]="name" [form]="form">
+        <p-calendar [formControlName]="forName" [id]="forName" [placeholder]="name" [dateFormat]="dateFormat"
+            [showButtonBar]="showButtonBar" [title]="name" [maxDate]="maxDate" [minDate]="minDate"
+            [touchUI]="(touchUI || touch)" [showOnFocus]="showOnFocus" [monthNavigator]="monthNavigator"
+            [yearNavigator]="yearNavigator" [yearRange]="yearRange" [showIcon]="showIcon"
+            styleClass="cssInputComponentPrimeNg" inputStyleClass="cssInputPrimeNg" (onBlur)="onBlur($event)"
+            rPCalendarMask>
+        </p-calendar>
+    </app-input-template>
+</form>

@@ -1,0 +1,10 @@
+<form [formGroup]="form">
+    <app-input-template [for-name]="forName" [name]="name" [form]="form">
+        <p-inputNumber [formControlName]="forName" mode="currency" [inputId]="forName" [min]="min" [max]="max"
+            [placeholder]="name" [title]="name" class="cssInputComponentPrimeNg" [minFractionDigits]="minFractionDigits"
+            [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix" [maxlength]="maxlength"
+            [useGrouping]="useGrouping" styleClass="cssInputComponentPrimeNg" [mode]="mode" [locale]="locale"
+            inputStyleClass="cssInputPrimeNg" (onBlur)="onBlur($event)">
+        </p-inputNumber>
+    </app-input-template>
+</form>
