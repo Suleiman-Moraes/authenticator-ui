@@ -7,6 +7,7 @@ import { CardModule } from 'primeng/card';
 import { FieldsetModule } from 'primeng/fieldset';
 import { ToastModule } from 'primeng/toast';
 import { BaseResourceUtilComponent } from 'src/app/shared/components/base-resource-util/base-resource-util.component';
+import { DescriptionListComponent } from 'src/app/shared/components/description-list/description-list.component';
 import { FormHeadComponent } from 'src/app/shared/components/form-head/form-head.component';
 import { InputDateComponent } from 'src/app/shared/components/input-date/input-date.component';
 import { InputMoneyComponent } from 'src/app/shared/components/input-money/input-money.component';
@@ -25,7 +26,8 @@ import { InputNumberComponent } from 'src/app/shared/components/input-number/inp
         InputMoneyComponent,
         InputNumberComponent,
         InputDateComponent,
-        TranslateModule
+        TranslateModule,
+        DescriptionListComponent
     ],
     templateUrl: './prototype.component.html',
     styleUrl: './prototype.component.scss'
@@ -33,6 +35,12 @@ import { InputNumberComponent } from 'src/app/shared/components/input-number/inp
 export class PrototypeComponent extends BaseResourceUtilComponent implements OnInit {
 
     form!: FormGroup;
+    items: any[] = [
+        { label: 'Proposta', value: 'R$ 2.000.478,87' },
+        { label: 'VPL', value: 'R$ 2.000.478,87' },
+        { label: 'Valor do m²', value: 'R$ 2.000.478,87' },
+        { label: 'Data da Proposta', value: '23/04/2024' }
+    ];
 
     constructor() {
         super();

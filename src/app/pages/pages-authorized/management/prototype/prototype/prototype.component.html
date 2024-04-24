@@ -33,16 +33,8 @@
                         <i class="pi pi-money-bill"></i>
                     </div>
                 </ng-template>
-                <div class="grid formgrid">
-                    <app-input-money class="col-12 md:col-3" for-name="value" name="Valor" [form]="form">
-                    </app-input-money>
-                    <app-input-money class="col-12 md:col-3" for-name="vpl" name="VPL" [form]="form">
-                    </app-input-money>
-                    <app-input-money class="col-12 md:col-3" for-name="valueMeters2" name="Valor do m²" [form]="form">
-                    </app-input-money>
-                    <app-input-date class="col-12 md:col-3" for-name="date" name="Data" [form]="form">
-                    </app-input-date>
-                </div>
+
+                <app-description-list [items]="items"></app-description-list>
             </p-fieldset>
             <p-card>
             </p-card>
