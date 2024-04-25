@@ -36,8 +36,71 @@
 
                 <app-description-list [items]="items"></app-description-list>
             </p-fieldset>
-            <p-card>
-            </p-card>
+            <br>
+            <p-fieldset [toggleable]="true">
+                <ng-template pTemplate="header">
+                    <div class="flex align-items-center gap-2 px-2">
+                        <span class="font-bold">Diferença</span>
+                        <i class="pi pi-percentage"></i>
+                    </div>
+                </ng-template>
+
+                <app-description-list [items]="itemsDifference"></app-description-list>
+            </p-fieldset>
+            <br>
+            <p-panel [toggleable]="true" header="Condição - 1">
+                <ng-template pTemplate="icons">
+                    <button pButton icon="pi pi-trash" type="button" class="p-button-danger" title="Delete"></button>
+                    &nbsp;
+                </ng-template>
+                <div class="grid formgrid">
+                    <app-select-list class="col-12 md:col-3" name="Periodicidade" [form]="form" for-name="test"
+                        [options]="periodicities" />
+                    <app-input-number class="col-12 md:col-3" for-name="sizeMeters2" name="N Parcelas"
+                        [use-grouping]="true" [form]="form">
+                    </app-input-number>
+                    <app-input-date class="col-12 md:col-3" for-name="date" name="Início Vencimento" [form]="form">
+                    </app-input-date>
+                    <app-input-money class="col-12 md:col-3" for-name="valueMeters2" name="Valor das parcelas"
+                        [form]="form">
+                    </app-input-money>
+                    <div class="col-12 md:col-4"></div>
+                    <app-input-money class="col-12 md:col-4" for-name="valueMeters2" name="Valor Total" [form]="form">
+                    </app-input-money>
+                    <div class="col-12 md:col-4"></div>
+                </div>
+            </p-panel>
+            <br>
+            <p-panel [toggleable]="true" header="Condição - 2">
+                <ng-template pTemplate="icons">
+                    <button pButton icon="pi pi-trash" type="button" class="p-button-danger" title="Delete"></button>
+                    &nbsp;
+                </ng-template>
+                <div class="grid formgrid">
+                    <app-select-list class="col-12 md:col-3" name="Periodicidade" [form]="form" for-name="test"
+                        [options]="periodicities" />
+                    <app-input-number class="col-12 md:col-3" for-name="sizeMeters2" name="N Parcelas"
+                        [use-grouping]="true" [form]="form">
+                    </app-input-number>
+                    <app-input-date class="col-12 md:col-3" for-name="date" name="Início Vencimento" [form]="form">
+                    </app-input-date>
+                    <app-input-money class="col-12 md:col-3" for-name="valueMeters2" name="Valor das parcelas"
+                        [form]="form">
+                    </app-input-money>
+                    <div class="col-12 md:col-4"></div>
+                    <app-input-money class="col-12 md:col-4" for-name="valueMeters2" name="Valor Total" [form]="form">
+                    </app-input-money>
+                    <div class="col-12 md:col-4"></div>
+                </div>
+            </p-panel>
+            <br>
+            <div class="flex flex-wrap align-items-center justify-content-between gap-3">
+                <span><strong>Valor total da proposta:</strong> R$ 1.518.911,41</span>
+                <div class="flex align-items-center gap-2">
+                    <button pButton icon="pi pi-plus" type="button" class="p-button" title="New"></button>
+                    <button pButton icon="pi pi-save" type="button" class="p-button-success" title="Save"></button>
+                </div>
+            </div>
         </p-card>
     </div>
 </div>

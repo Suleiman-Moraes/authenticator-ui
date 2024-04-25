@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-description-list',
@@ -10,7 +10,7 @@ import { Component, Input } from '@angular/core';
     templateUrl: './description-list.component.html',
     styleUrl: './description-list.component.scss'
 })
-export class DescriptionListComponent {
+export class DescriptionListComponent implements OnInit {
 
     @Input() set items(items: any[]) {
         this._items = [];
@@ -27,11 +27,22 @@ export class DescriptionListComponent {
 
     private _items: any[] = [];
 
+    private screenWidth: number = 0;
+
+    ngOnInit(): void {
+        this.screenWidth = window.innerWidth;
+    }
+
     get items(): any[] {
         return this._items;
     }
 
     get mobile(): any {
-        return window.innerWidth <= 767;
+        return this.screenWidth <= 767;
+    }
+
+    @HostListener('window:resize', ['$event'])
+    onResize(_: any) {
+        this.screenWidth = window.innerWidth;
     }
 }
