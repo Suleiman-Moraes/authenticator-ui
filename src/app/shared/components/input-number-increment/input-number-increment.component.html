@@ -3,8 +3,10 @@
         <p-inputNumber [formControlName]="forName" mode="currency" [inputId]="forName" [min]="min" [max]="max"
             [placeholder]="name" [title]="name" [minFractionDigits]="minFractionDigits"
             [maxFractionDigits]="maxFractionDigits" [prefix]="prefix" [suffix]="suffix" [maxlength]="maxlength"
-            [useGrouping]="useGrouping" [mode]="mode" [locale]="locale" styleClass="cssInputComponentPrimeNg"
-            inputStyleClass="cssInputPrimeNg" class="p-calendar cssInputComponentPrimeNg" (onBlur)="onBlur($event)">
+            [useGrouping]="useGrouping" [mode]="mode" [locale]="locale" incrementButtonClass="p-button"
+            [showButtons]="true" buttonLayout="horizontal" decrementButtonClass="p-button-danger"
+            styleClass="cssInputComponentPrimeNg" inputStyleClass="cssInputPrimeNg"
+            class="p-calendar cssInputComponentPrimeNg" (onBlur)="onBlur($event)">
         </p-inputNumber>
     </app-input-template>
 </form>

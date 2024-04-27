@@ -14,6 +14,7 @@ import { DescriptionListComponent } from 'src/app/shared/components/description-
 import { FormHeadComponent } from 'src/app/shared/components/form-head/form-head.component';
 import { InputDateComponent } from 'src/app/shared/components/input-date/input-date.component';
 import { InputMoneyComponent } from 'src/app/shared/components/input-money/input-money.component';
+import { InputNumberIncrementComponent } from 'src/app/shared/components/input-number-increment/input-number-increment.component';
 import { InputNumberComponent } from 'src/app/shared/components/input-number/input-number.component';
 import { SelectListComponent } from 'src/app/shared/components/select-list/select-list.component';
 
@@ -29,6 +30,7 @@ import { SelectListComponent } from 'src/app/shared/components/select-list/selec
         AvatarGroupModule,
         InputMoneyComponent,
         InputNumberComponent,
+        InputNumberIncrementComponent,
         InputDateComponent,
         SelectListComponent,
         TranslateModule,
