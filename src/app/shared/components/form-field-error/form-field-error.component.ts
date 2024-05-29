@@ -27,9 +27,6 @@ export class FormFieldErrorComponent {
         if (this.form?.errors?.required) {
             return "Dado Obrigatório";
         }
-        if (this.form?.errors?.withoutSpace) {
-            return "Dado Obrigatório";
-        }
         else if (this.form?.errors?.maxlength) {
             const requiredLenght = this.form?.errors?.maxlength.requiredLength;
             return `Deve ter no máximo ${requiredLenght} caracteres`;
@@ -46,6 +43,21 @@ export class FormFieldErrorComponent {
         }
 
         //Custom
+        else if (this.form?.errors?.withoutSpace) {
+            return "Dado Obrigatório";
+        }
+        else if (this.form?.errors?.positive) {
+            return "Valor deve ser positivo";
+        }
+        else if (this.form?.errors?.positiveOrZero) {
+            return "Valor deve ser positivo ou zero";
+        }
+        else if (this.form?.errors?.futureOrPresent) {
+            return "Data deve ser futura ou atual";
+        }
+        else if (this.form?.errors?.enumValidator) {
+            return "Valor inválido";
+        }
         else if (this.form?.errors?.customizado) {
             return `Erro customizado`;
         }
