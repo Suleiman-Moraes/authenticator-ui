@@ -22,6 +22,8 @@ export class SelectListComponent implements OnInit, OnChanges {
     @Input('form') form!: FormGroup;
     @Input() text: string = 'description';
     @Input() value: string = 'key';
+    @Input('list-string') listString: boolean = false;
+    @Input() editable: boolean = false;
     @Input() options!: any[];
 
     @Output('change') change: EventEmitter<any> = new EventEmitter<any>();
@@ -52,10 +54,18 @@ export class SelectListComponent implements OnInit, OnChanges {
         if (this.options) {
             this.itens = [];
             this.options.forEach(option => {
-                this.itens.push({
-                    label: option[this.text],
-                    value: option[this.value]
-                });
+                if (this.listString) {
+                    this.itens.push({
+                        label: option,
+                        value: option
+                    });
+                }
+                else {
+                    this.itens.push({
+                        label: option[this.text],
+                        value: option[this.value]
+                    });
+                }
             });
         }
     }
