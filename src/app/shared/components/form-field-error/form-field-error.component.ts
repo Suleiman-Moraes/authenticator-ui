@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { errorMessages } from './error-messages';
 
 @Component({
     selector: 'app-form-field-error',
@@ -58,17 +59,15 @@ export class FormFieldErrorComponent {
         else if (this.form?.errors?.enumValidator) {
             return "Valor inválido";
         }
-        else if (this.form?.errors?.customizado) {
-            return `Erro customizado`;
-        }
-        else if (this.form?.errors?.cpfValid) {
-            return `CPF Inválido`;
-        }
-        else if (this.form?.errors?.inscricaoEstadualValid) {
-            return `Inscrição Estadual Inválida`;
-        }
-        else if (this.form?.errors?.cnpjValid) {
-            return `CNPJ Inválido`;
+
+        else {
+            let message = 'Erro';
+            Object.keys(errorMessages).forEach(key => {
+                if (this.form?.errors?.[key]) {
+                    message = errorMessages[key];
+                }
+            });
+            return message;
         }
     }
 

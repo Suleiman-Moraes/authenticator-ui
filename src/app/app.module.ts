@@ -1,6 +1,7 @@
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { LocationStrategy, PathLocationStrategy, registerLocaleData } from '@angular/common';
 import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
-import { ErrorHandler, NgModule } from '@angular/core';
+import ptBr from '@angular/common/locales/pt';
+import { ErrorHandler, LOCALE_ID, NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -20,6 +21,8 @@ export function tokenGetter(): string | null {
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+registerLocaleData(ptBr);
 
 @NgModule({
     declarations: [
@@ -52,7 +55,8 @@ export function createTranslateLoader(http: HttpClient) {
         MessageService,
         { provide: ErrorHandler, useClass: HandleError },
         provideHttpClient(withInterceptors([authInterceptor])),
-        ConfirmationService
+        ConfirmationService,
+        { provide: LOCALE_ID, useValue: 'pt' }
     ],
     bootstrap: [AppComponent],
 })

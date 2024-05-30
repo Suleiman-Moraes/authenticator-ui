@@ -24,6 +24,6 @@ export class ProposalDTO {
             sizeM2: [null, [Validators.required, FormValidations.positive]],
             enterprise: EnterpriseDTO.createFormGroup(formBuilder),
             conditions: formBuilder.array([])
-        })
+        });
     }
 }
