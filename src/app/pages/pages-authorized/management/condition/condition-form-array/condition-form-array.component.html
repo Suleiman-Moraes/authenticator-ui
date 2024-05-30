@@ -1,0 +1,49 @@
+<p-fieldset [toggleable]="true">
+    <ng-template pTemplate="header">
+        <div class="flex align-items-center gap-2 px-2">
+            <span class="font-bold">Condições de pagamento</span>
+            <i class="pi pi-wallet"></i>
+        </div>
+    </ng-template>
+    <div formArrayName="conditions">
+        @for (conditionFormGroup of conditions.controls; track $index){
+        <p-panel [toggleable]="true" [header]="getConditionName($index, conditionFormGroup.value)"
+            [collapsed]="isPanelCollapsed[$index]">
+            <ng-template pTemplate="icons">
+                <button pButton icon="pi pi-trash" type="button" class="p-button-danger" title="Delete"
+                    (click)="removeCondition($index)">
+                </button>
+                &nbsp;
+            </ng-template>
+            <app-condition-form-line [form]="conditionFormGroup" [periodicities]="periodicities"
+                (amountChanged)="onChildAmountChanged($event)">
+            </app-condition-form-line>
+        </p-panel>
+        <br>
+        }
+    </div>
+    <div class="flex flex-wrap align-items-center justify-content-between gap-3">
+        <span><strong>Valor total da proposta:</strong> {{ amount | currency: 'BRL' }}</span>
+        <p-confirmPopup></p-confirmPopup>
+        <div class="flex align-items-center gap-2">
+            @if (containsConditions) {
+            <button pButton icon="pi pi-trash" type="button" class="p-button-danger" title="Remove All"
+                (click)="callConfirmPopupRemoveAllCondition($event)">
+            </button>
+            @if (allPanelsCollapsed) {
+            <button pButton icon="pi pi-eye" type="button" class="p-button" title="Collapse All"
+                (click)="collapseAllPanels(false)">
+            </button>
+            }
+            @else {
+            <button pButton icon="pi pi-eye-slash" type="button" class="p-button" title="Collapse All"
+                (click)="collapseAllPanels()">
+            </button>
+            }
+            }
+            <button pButton icon="pi pi-plus" type="button" class="p-button" title="New"
+                (click)="addCondition()"></button>
+            <!-- <button pButton icon="pi pi-save" type="button" class="p-button-success" title="Save"></button> -->
+        </div>
+    </div>
+</p-fieldset>

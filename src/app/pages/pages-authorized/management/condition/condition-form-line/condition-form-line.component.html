@@ -1,0 +1,14 @@
+<div class="grid formgrid">
+    <app-select-list class="col-12 md:col-3" name="Periodicidade" [form]="form" for-name="frequency"
+        [options]="periodicities" />
+    <app-input-number class="col-12 md:col-2" for-name="numberInstallments" name="N Parcelas" [use-grouping]="true"
+        [form]="form">
+    </app-input-number>
+    <app-input-date class="col-12 md:col-2" for-name="beginningInstallment" name="Vencimento" [form]="form"
+        [min-date]="today">
+    </app-input-date>
+    <app-input-money class="col-12 md:col-2" for-name="valueInstallments" name="Valor Parcelas" [form]="form">
+    </app-input-money>
+    <app-input-label class="col-12 md:col-3" name="Valor Total" value="{{ amount | currency: 'BRL' }}">
+    </app-input-label>
+</div>
