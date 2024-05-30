@@ -2,31 +2,20 @@
 <div class="grid">
     <div class="col-12">
         <p-card styleClass="cardForms">
-            <app-form-head [show-list-btn]="false" title="{{ 'Protótipo' | translate }}" />
+            <app-form-head [complement]="complement" [title]="pageTitle" (save)="submitForm()" />
             <br>
-            <p-fieldset [toggleable]="true">
+            <p-fieldset [toggleable]="true" [collapsed]="false">
                 <ng-template pTemplate="header">
                     <div class="flex align-items-center gap-2 px-2">
                         <span class="font-bold">Informações</span>
                         <i class="pi pi-info-circle"></i>
                     </div>
                 </ng-template>
-                <div class="grid formgrid">
-                    <app-input-money class="col-12 md:col-4" for-name="value" name="Valor" [form]="form">
-                    </app-input-money>
-                    <app-input-money class="col-12 md:col-4" for-name="vpl" name="VPL" [form]="form">
-                    </app-input-money>
-                    <app-input-money class="col-12 md:col-4" for-name="valueMeters2" name="Valor do m²" [form]="form">
-                    </app-input-money>
-                    <app-input-number class="col-12 md:col-4" for-name="sizeMeters2" name="Tamanho m²" suffix=" m²"
-                        [use-grouping]="true" min-fraction-digits="2" max-fraction-digits="2" [form]="form">
-                    </app-input-number>
-                    <app-input-date class="col-12 md:col-4" for-name="date" name="Data da tabela" [form]="form">
-                    </app-input-date>
-                </div>
+                <app-enterprise-form-recycle [form]="form.get('enterprise')">
+                </app-enterprise-form-recycle>
             </p-fieldset>
             <br>
-            <p-fieldset [toggleable]="true">
+            <p-fieldset [toggleable]="true" [collapsed]="false">
                 <ng-template pTemplate="header">
                     <div class="flex align-items-center gap-2 px-2">
                         <span class="font-bold">Proposta</span>
@@ -37,7 +26,7 @@
                 <app-description-list [items]="items"></app-description-list>
             </p-fieldset>
             <br>
-            <p-fieldset [toggleable]="true">
+            <p-fieldset [toggleable]="true" [collapsed]="false">
                 <ng-template pTemplate="header">
                     <div class="flex align-items-center gap-2 px-2">
                         <span class="font-bold">Diferença</span>
@@ -48,52 +37,11 @@
                 <app-description-list [items]="itemsDifference"></app-description-list>
             </p-fieldset>
             <br>
-            <p-panel [toggleable]="true" header="Condição - 1">
-                <ng-template pTemplate="icons">
-                    <button pButton icon="pi pi-trash" type="button" class="p-button-danger" title="Delete"></button>
-                    &nbsp;
-                </ng-template>
-                <div class="grid formgrid">
-                    <app-select-list class="col-12 md:col-3" name="Periodicidade" [form]="form" for-name="test"
-                        [options]="periodicities" />
-                    <app-input-number class="col-12 md:col-2" for-name="sizeMeters2" name="N Parcelas"
-                        [use-grouping]="true" [form]="form">
-                    </app-input-number>
-                    <app-input-date class="col-12 md:col-2" for-name="date" name="Vencimento" [form]="form">
-                    </app-input-date>
-                    <app-input-money class="col-12 md:col-2" for-name="valueMeters2" name="Valor Parcelas"
-                        [form]="form">
-                    </app-input-money>
-                    <app-input-money class="col-12 md:col-3" for-name="valueMeters2" name="Valor Total" [form]="form">
-                    </app-input-money>
-                </div>
-            </p-panel>
-            <br>
-            <p-panel [toggleable]="true" header="Condição - 2">
-                <ng-template pTemplate="icons">
-                    <button pButton icon="pi pi-trash" type="button" class="p-button-danger" title="Delete"></button>
-                    &nbsp;
-                </ng-template>
-                <div class="grid formgrid">
-                    <app-select-list class="col-12 md:col-3" name="Periodicidade" [form]="form" for-name="test"
-                        [options]="periodicities" />
-                    <app-input-number class="col-12 md:col-2" for-name="sizeMeters2" name="N Parcelas"
-                        [use-grouping]="true" [form]="form">
-                    </app-input-number>
-                    <app-input-date class="col-12 md:col-2" for-name="date" name="Vencimento" [form]="form">
-                    </app-input-date>
-                    <app-input-money class="col-12 md:col-2" for-name="valueMeters2" name="Valor Parcelas"
-                        [form]="form">
-                    </app-input-money>
-                    <app-input-money class="col-12 md:col-3" for-name="valueMeters2" name="Valor Total" [form]="form">
-                    </app-input-money>
-                </div>
-            </p-panel>
+            <app-condition-form-array [conditions]="form.get('conditions')" (amountChanged)="onAmountChanged($event)">
+            </app-condition-form-array>
             <br>
             <div class="flex flex-wrap align-items-center justify-content-between gap-3">
-                <span><strong>Valor total da proposta:</strong> R$ 1.518.911,41</span>
                 <div class="flex align-items-center gap-2">
-                    <button pButton icon="pi pi-plus" type="button" class="p-button" title="New"></button>
                     <button pButton icon="pi pi-save" type="button" class="p-button-success" title="Save"></button>
                 </div>
             </div>

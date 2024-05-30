@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, QueryList, ViewChildren, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren, inject } from '@angular/core';
 import { FormArray } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
@@ -28,6 +28,8 @@ import { ConditionFormLineComponent } from '../condition-form-line/condition-for
 export class ConditionFormArrayComponent extends BaseResourceUtilComponent implements OnInit {
 
     @Input() conditions!: FormArray;
+
+    @Output() amountChanged: EventEmitter<number> = new EventEmitter<number>();
 
     @ViewChildren(ConditionFormLineComponent) conditionComponents!: QueryList<ConditionFormLineComponent>;
 
@@ -60,6 +62,7 @@ export class ConditionFormArrayComponent extends BaseResourceUtilComponent imple
     onChildAmountChanged(_?: number): void {
         setTimeout(() => {
             this.amount = this.conditionComponents.toArray().reduce((sum, component) => sum + component.amount, 0);
+            this.amountChanged.emit(this.amount);
         }, 500);
     }
 

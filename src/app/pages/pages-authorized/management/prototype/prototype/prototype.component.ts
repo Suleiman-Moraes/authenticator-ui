@@ -1,22 +1,17 @@
-import { DatePipe } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
-import { AvatarModule } from 'primeng/avatar';
-import { AvatarGroupModule } from 'primeng/avatargroup';
+import { CommonModule, CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
+import { AfterContentChecked, Component, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { FieldsetModule } from 'primeng/fieldset';
-import { PanelModule } from 'primeng/panel';
 import { ToastModule } from 'primeng/toast';
-import { BaseResourceUtilComponent } from 'src/app/shared/components/base-resource-util/base-resource-util.component';
+import { BaseResourceFormComponent } from 'src/app/shared/components/base-resource-form/base-resource-form.component';
 import { DescriptionListComponent } from 'src/app/shared/components/description-list/description-list.component';
 import { FormHeadComponent } from 'src/app/shared/components/form-head/form-head.component';
-import { InputDateComponent } from 'src/app/shared/components/input-date/input-date.component';
-import { InputMoneyComponent } from 'src/app/shared/components/input-money/input-money.component';
-import { InputNumberIncrementComponent } from 'src/app/shared/components/input-number-increment/input-number-increment.component';
-import { InputNumberComponent } from 'src/app/shared/components/input-number/input-number.component';
-import { SelectListComponent } from 'src/app/shared/components/select-list/select-list.component';
+import { EnterpriseDTO } from 'src/app/shared/model/enterprise/enterprise-dto.model';
+import { ProposalDTO } from 'src/app/shared/model/proposal/proposal-dto.model';
+import { ProposalService } from 'src/app/shared/service/proposal.service';
+import { ConditionFormArrayComponent } from '../../condition/condition-form-array/condition-form-array.component';
+import { EnterpriseFormRecycleComponent } from '../../enterprise/enterprise-form-recycle/enterprise-form-recycle.component';
 
 @Component({
     selector: 'app-prototype',
@@ -26,29 +21,26 @@ import { SelectListComponent } from 'src/app/shared/components/select-list/selec
         CardModule,
         ToastModule,
         FieldsetModule,
-        AvatarModule,
-        AvatarGroupModule,
-        InputMoneyComponent,
-        InputNumberComponent,
-        InputNumberIncrementComponent,
-        InputDateComponent,
-        SelectListComponent,
-        TranslateModule,
         DescriptionListComponent,
-        PanelModule,
+        CommonModule,
+        EnterpriseFormRecycleComponent,
+        ConditionFormArrayComponent,
         ButtonModule
     ],
     providers: [
-        DatePipe
+        DatePipe,
+        CurrencyPipe,
+        DecimalPipe
     ],
     templateUrl: './prototype.component.html',
     styleUrl: './prototype.component.scss'
 })
-export class PrototypeComponent extends BaseResourceUtilComponent implements OnInit {
+export class PrototypeComponent extends BaseResourceFormComponent implements OnInit, AfterContentChecked {
 
     private datePipe: DatePipe = inject(DatePipe);
+    private currencyPipe: CurrencyPipe = inject(CurrencyPipe);
+    private decimalPipe: DecimalPipe = inject(DecimalPipe);
 
-    form!: FormGroup;
     items: any[] = [];
     itemsDifference: any[] = [];
     periodicities: any[] = [
@@ -60,39 +52,101 @@ export class PrototypeComponent extends BaseResourceUtilComponent implements OnI
         { key: 'FINANCING', description: 'Financiamento' }
     ]
 
-    constructor() {
-        super();
+    constructor(
+        protected service: ProposalService
+    ) {
+        super(service);
     }
 
-    get susu(){
+    get susu() {
         return window.innerWidth;
     }
 
     ngOnInit(): void {
-        this.initForm();
+        this.complement = 'proposal';
+        this.onInit();
+        this.applyItems();
+        this.applyItemsDifference();
+    }
+
+    ngAfterContentChecked(): void {
+        this.afterContentChecked();
+    }
+
+    onAmountChanged(amount: number) {
+        this.form.get('value')?.setValue(amount || 0);
+        this.form.get('vpl')?.setValue(this.form.value.value);
+        this.calculateValueM2();
+
+        this.applyItems();
+        this.applyItemsDifference();
+    }
+
+    private applyItems(): void {
+        const proposal: ProposalDTO = this.form.value;
         this.items = [
-            { label: 'Proposta', value: 'R$ 2.000.478,87' },
-            { label: 'VPL', value: 'R$ 2.000.478,87' },
-            { label: 'Valor do m²', value: 'R$ 2.000.478,87' },
+            { label: 'Proposta', value: this.currencyPipe.transform(proposal.value || 0, 'BRL') },
+            { label: 'VPL', value: this.currencyPipe.transform(proposal.vpl || 0, 'BRL') },
+            { label: 'Valor do m²', value: this.currencyPipe.transform(proposal.valueM2 || 0, 'BRL') },
             { label: 'Data da Proposta', value: this.datePipe.transform(new Date(), 'dd/MM/yyyy') }
-        ];
-        this.itemsDifference = [
-            { label: 'Valor', value: 'R$ 2.000.478,87' },
-            { label: 'Valor %', value: '12,52 %' },
-            { label: 'VPL', value: 'R$ 2.000.478,87' },
-            { label: 'VPL %', value: '- 12,5 %' },
-            { label: 'Captação % (???)', value: '0 %' }
         ];
     }
 
-    private initForm(): void {
-        this.form = this.formBuilder.group({
-            test: [null],
-            value: [null],
-            vpl: [null],
-            valueMeters2: [null],
-            sizeMeters2: [null],
-            date: [null]
+    private applyItemsDifference(enterprise: EnterpriseDTO = this.form.value.enterprise): void {
+        const proposal: ProposalDTO = this.form.value;
+        this.itemsDifference = [
+            { label: 'Valor', value: this.currencyPipe.transform(proposal.value || 0, 'BRL') },
+            { label: 'Valor %', value: this.calculateAndFormatPercent(proposal.value || 0, enterprise.value || 0) },
+            { label: 'VPL', value: this.currencyPipe.transform(proposal.vpl || 0, 'BRL') },
+            { label: 'VPL %', value: this.calculateAndFormatPercent(proposal.vpl || 0, enterprise.vpl || 0) }
+        ];
+    }
+
+    private calculateAndFormatPercent(valueA: number, valueB: number): string {
+        return this.decimalPipe.transform((valueA / valueB * 100.0) || 0, '1.2-2') + ' %';
+    }
+
+    protected initForm(): void {
+        this.form = ProposalDTO.createFormGroup(this.formBuilder);
+
+        this.form.get('enterprise')?.valueChanges.subscribe(value => {
+            this.onChangeEnterprise(value);
         });
+    }
+
+    protected override createPageTitle(): string {
+        return 'Nova Proposta';
+    }
+
+    protected override editionPageTitle(): string {
+        return 'Alterar Proposta';
+    }
+
+    protected override afterSubmitFormSuccess(): void {
+        this.openConfirmDialogAfterSave();
+    }
+
+    private onChangeEnterprise(value: EnterpriseDTO): void {
+        this.form.get('sizeM2')?.setValue(value.sizeM2);
+        this.calculateValueM2();
+
+        this.applyItemsDifference(value);
+    }
+
+    private calculateValueM2(): void {
+        const value = this.form.get('value')?.value;
+        const sizeM2 = this.form.get('sizeM2')?.value;
+
+        if (value && sizeM2) {
+            this.form.get('valueM2')?.setValue(value / sizeM2);
+        }
+        else {
+            this.form.get('valueM2')?.setValue(0);
+        }
+    }
+
+    // TODO - remover
+    protected override setCurrentAction(): void {
+        this.currentAction = 'new';
     }
 }
