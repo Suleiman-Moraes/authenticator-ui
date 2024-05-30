@@ -4,10 +4,10 @@ import { ToastModule } from 'primeng/toast';
 import { BaseResourceListComponent } from 'src/app/shared/components/base-resource-list/base-resource-list.component';
 import { ListTableBodyComponent } from 'src/app/shared/components/list-table-body/list-table-body.component';
 import { ListTableHeadComponent } from 'src/app/shared/components/list-table-head/list-table-head.component';
-import { PersonService } from 'src/app/shared/service/person.service';
+import { ProposalService } from 'src/app/shared/service/proposal.service';
 
 @Component({
-    selector: 'app-person-list',
+    selector: 'app-proposal-list',
     standalone: true,
     imports: [
         ListTableHeadComponent,
@@ -15,10 +15,10 @@ import { PersonService } from 'src/app/shared/service/person.service';
         CardModule,
         ToastModule
     ],
-    templateUrl: './person-list.component.html',
-    styleUrl: './person-list.component.scss'
+    templateUrl: './proposal-list.component.html',
+    styleUrl: './proposal-list.component.scss'
 })
-export class PersonListComponent extends BaseResourceListComponent {
+export class ProposalListComponent extends BaseResourceListComponent {
 
     map: any = {
         'name': 'Nome',
@@ -29,8 +29,8 @@ export class PersonListComponent extends BaseResourceListComponent {
     };
 
     constructor(
-        private personService: PersonService
+        private service: ProposalService
     ) {
-        super(personService, 'PersonListComponent');
+        super(service, 'ProposalListComponent');
     }
 }

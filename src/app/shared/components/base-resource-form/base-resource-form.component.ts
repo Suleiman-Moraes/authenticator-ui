@@ -52,7 +52,7 @@ export abstract class BaseResourceFormComponent extends BaseResourceUtilComponen
         }
         this.beforeSubmitForm();
         const key = this.resource?.key;
-        this.resource = this.form.value;
+        this.parseToResource();
         this.resource.key = key
         this.resourceService.sendForm(this.resource, (this.resource.key != null && this.resource.key > 0)).subscribe({
             next: (responseApi) => {
@@ -183,6 +183,10 @@ export abstract class BaseResourceFormComponent extends BaseResourceUtilComponen
             return false;
         }
         return true;
+    }
+
+    protected parseToResource(): void {
+        this.resource = this.form.value;
     }
 
     protected beforePatchValue(): void {/* This is intentional */ }

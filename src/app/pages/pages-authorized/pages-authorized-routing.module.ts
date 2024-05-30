@@ -7,6 +7,7 @@ const routes: Routes = [
     { path: '', title: 'Home', component: HomeComponent },
     { path: 'change-password', title: 'Change Password', component: UserChangePasswordComponent },
     { path: 'person', loadChildren: () => import('./management/person/person.module').then((m) => m.PersonModule) },
+    { path: 'proposal', loadChildren: () => import('./management/proposal/proposal.module').then((m) => m.ProposalModule) },
     { path: 'prototype', loadChildren: () => import('./management/prototype/prototype.module').then((m) => m.PrototypeModule) }
 ];
 

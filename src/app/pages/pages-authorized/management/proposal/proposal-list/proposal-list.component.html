@@ -1,0 +1,13 @@
+<p-toast></p-toast>
+<div class="grid">
+    <div class="col-12">
+        <p-card styleClass="cardForms">
+            <app-list-table-head (serach-text)="serach($event)" title="Listagem de propostas" />
+            <br>
+            <p-card>
+                <app-list-table-body [page]="page" (table-change)="pageChange($event)" [loading]="loading"
+                    [att-and-col]="map" />
+            </p-card>
+        </p-card>
+    </div>
+</div>

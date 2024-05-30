@@ -8,7 +8,7 @@ export class ConditionDTO {
         public frequency?: FrequencyEnum,
         public numberInstallments?: number,
         public valueInstallments?: number,
-        public beginningInstallment?: Date
+        public beginningInstallment?: Date | string | null
     ) {
 
     }

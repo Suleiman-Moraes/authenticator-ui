@@ -41,9 +41,6 @@ export class ConditionFormArrayComponent extends BaseResourceUtilComponent imple
 
     ngOnInit(): void {
         this.doSomethingSimple(this.auxiliaryListService.getEnumList('FrequencyEnum'), (res: KeyDescriptionDTO[]) => this.periodicities = res);
-
-        // TODO - remover
-        this.addCondition();
     }
 
     get allPanelsCollapsed(): boolean {
