@@ -21,11 +21,17 @@ import { ProposalService } from 'src/app/shared/service/proposal.service';
 export class ProposalListComponent extends BaseResourceListComponent {
 
     map: any = {
-        'name': 'Nome',
-        'username': 'Login',
-        'profileDescription': 'Perfil',
-        'email': 'Email',
-        'address': 'Endereço'
+        'enterpriseName': 'Nome Empreendimento',
+        'enterpriseUnit': 'Unidade',
+        'sizeM2': 'Tamanho m²',
+        'value': 'Valor',
+        'date': 'Data'
+    };
+
+    colPipes: any = {
+        value: 'currency',
+        date: 'date',
+        sizeM2: 'number'
     };
 
     constructor(

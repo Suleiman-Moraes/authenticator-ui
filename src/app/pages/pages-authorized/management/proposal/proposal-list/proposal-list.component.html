@@ -6,7 +6,7 @@
             <br>
             <p-card>
                 <app-list-table-body [page]="page" (table-change)="pageChange($event)" [loading]="loading"
-                    [att-and-col]="map" />
+                    [att-and-col]="map" [col-pipes]="colPipes" [is-edit]="false"/>
             </p-card>
         </p-card>
     </div>

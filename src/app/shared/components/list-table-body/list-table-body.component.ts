@@ -32,6 +32,7 @@ export class ListTableBodyComponent {
     @Input('att-and-col') attAndCol: any = {};
     @Input('col-pipes') colPipes: any = {};
     @Input('is-delete') isDelete: boolean = false;
+    @Input('is-edit') isEdit: boolean = true;
     @Input('enable-disable') enableDisable: boolean = false;
     @Output('table-change') tableChangeEvent: EventEmitter<Filter> = new EventEmitter<Filter>();
 
@@ -53,6 +54,10 @@ export class ListTableBodyComponent {
 
     get singlePage(): boolean {
         return this.page?.totalPages == 1;
+    }
+
+    get showAction(): boolean {
+        return this.isDelete || this.isEdit || this.enableDisable;
     }
 
     customSort(event: SortEvent) {
