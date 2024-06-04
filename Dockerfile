@@ -6,6 +6,10 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
+
+COPY set-env.sh ./
+RUN chmod +x set-env.sh && ./set-env.sh
+
 RUN npm run build
 
 FROM nginx:1.21.3-alpine
