@@ -16,4 +16,4 @@ COPY --from=build /app/dist/authenticator-ui /usr/share/nginx/html
 
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["/entrypoint.sh"]
