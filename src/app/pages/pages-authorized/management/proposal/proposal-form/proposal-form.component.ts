@@ -143,7 +143,7 @@ export class ProposalFormComponent extends BaseResourceFormComponent implements 
 
     protected override parseToResource(): void {
         let proposal: ProposalDTO = this.form.value;
-        if(proposal.conditions){
+        if(proposal.conditions) {
             proposal.conditions.forEach(condition => {
                 condition.beginningInstallment = this.datePipe.transform(condition.beginningInstallment, 'yyyy-MM-dd');
             })
