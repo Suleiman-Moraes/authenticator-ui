@@ -1,14 +1,8 @@
 import { Routes } from '@angular/router';
-import { AppLayout } from './app/layout/component/app.layout';
+import { NotfoundComponent } from './app/pages/pages-unauthorized/notfound/notfound.component';
 
 export const appRoutes: Routes = [
-    {
-        path: 'pages',
-        component: AppLayout,
-        children: [
-            { path: '', loadChildren: () => import('./app/pages/pages.routes') }
-        ]
-    },
-    { path: '', pathMatch: 'full', redirectTo: '/pages' },
-    { path: '**', redirectTo: '/notfound' }
+    { path: '', loadChildren: () => import('./app/pages/pages.routes').then((m) => m.pagesRoutes) },
+    { path: '404', component: NotfoundComponent },
+    { path: '**', redirectTo: '/404' }
 ];
