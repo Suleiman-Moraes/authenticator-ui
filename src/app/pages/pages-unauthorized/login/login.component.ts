@@ -10,6 +10,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
+import { AppFloatingConfigurator } from 'src/app/layout/component/app.floatingconfigurator';
 import { LayoutService } from 'src/app/layout/service/layout.service';
 import { BaseResourceUtilComponent } from 'src/app/shared/components/base-resource-util/base-resource-util.component';
 import { FormFieldErrorComponent } from 'src/app/shared/components/form-field-error/form-field-error.component';
@@ -28,7 +29,8 @@ import { FormFieldErrorComponent } from 'src/app/shared/components/form-field-er
         ToastModule,
         ReactiveFormsModule,
         FormFieldErrorComponent,
-        RippleModule
+        RippleModule,
+        AppFloatingConfigurator
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',
