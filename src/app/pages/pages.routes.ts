@@ -8,7 +8,7 @@ export const pagesRoutes: Routes = [
     {
         path: 'pages', component: AppLayout, canActivate: [authGuard],
         children: [
-            { path: 'root', component: HomeComponent, canActivate: [authGuard], data: { roles: [Role.ROLE_ROOT] } }
+            { path: '', component: HomeComponent, canActivate: [authGuard], data: { roles: [Role.ROLE_ROOT] } }
         ]
     },
     { path: 'home', component: HomeComponent },

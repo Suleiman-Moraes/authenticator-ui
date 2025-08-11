@@ -1,0 +1,65 @@
+<div class="layout-topbar">
+    <div class="layout-topbar-logo-container">
+        <button type="button" aria-label="Abrir menu" class="layout-menu-button layout-topbar-action"
+            (click)="layoutService.onMenuToggle()">
+            <i class="pi pi-bars"></i>
+        </button>
+
+        <a class="layout-topbar-logo" routerLink="/pages">
+            <img [src]="'assets/layout/images/' + (layoutService.isDarkTheme() ? 'logo-white' : 'logo-dark') + '.svg'"
+                alt="Logo" class="w-16" />
+            <span class="text-center text-base">AUTHENTICATOR-UI</span>
+        </a>
+    </div>
+
+    <div class="layout-topbar-actions">
+        <div class="layout-config-menu">
+            <button type="button" aria-label="Alternar modo escuro" class="layout-topbar-action"
+                (click)="toggleDarkMode()">
+                <i [ngClass]="{
+            'pi ': true,
+            'pi-moon': layoutService.isDarkTheme(),
+            'pi-sun': !layoutService.isDarkTheme()
+          }">
+                </i>
+            </button>
+
+            <div class="relative c-invisible">
+                <button type="button" aria-label="Abrir configuração de tema"
+                    class="layout-topbar-action layout-topbar-action-highlight" pStyleClass="@next"
+                    enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden"
+                    leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true">
+                    <i class="pi pi-palette"></i>
+                </button>
+                <app-configurator />
+            </div>
+        </div>
+
+        <button type="button" aria-label="Abrir menu de ações" class="layout-topbar-menu-button layout-topbar-action"
+            pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden"
+            leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true">
+            <i class="pi pi-ellipsis-v"></i>
+        </button>
+
+        <div class="layout-topbar-menu hidden lg:block">
+            <div class="layout-topbar-menu-content">
+                <a type="button" aria-label="Profile" class="layout-topbar-action"
+                    routerLink="/pages/person/me" title="Profile">
+                    <i class="pi pi-user"></i>
+                    <span>Profile</span>
+                </a>
+                <a type="button" aria-label="Change Password" class="layout-topbar-action"
+                    routerLink="/pages/change-password" title="Change Password">
+                    <i class="pi pi-key"></i>
+                    <span>Change Password</span>
+                </a>
+                <a type="button" aria-label="Abrir perfil" class="layout-topbar-action"
+                    routerLink="/login" title="Exit">
+                    <i class="pi pi-sign-out"></i>
+                    <span>Exit</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
