@@ -10,10 +10,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
-import { AppFloatingConfigurator } from 'src/app/layout/component/app.floatingconfigurator';
-import { LayoutService } from 'src/app/layout/service/layout.service';
 import { BaseResourceUtilComponent } from 'src/app/shared/components/base-resource-util/base-resource-util.component';
 import { FormFieldErrorComponent } from 'src/app/shared/components/form-field-error/form-field-error.component';
+import { AuthDynamicContentComponent } from '../../management/login/auth-dynamic-content/auth-dynamic-content.component';
 
 @Component({
     selector: 'app-login',
@@ -30,7 +29,7 @@ import { FormFieldErrorComponent } from 'src/app/shared/components/form-field-er
         ReactiveFormsModule,
         FormFieldErrorComponent,
         RippleModule,
-        AppFloatingConfigurator
+        AuthDynamicContentComponent
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',
@@ -43,7 +42,6 @@ export class LoginComponent extends BaseResourceUtilComponent {
     form!: FormGroup;
 
     constructor(
-        public layoutService: LayoutService,
         private route: ActivatedRoute
     ) {
         super();

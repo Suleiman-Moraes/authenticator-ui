@@ -1,50 +1,30 @@
 <p-toast></p-toast>
-<app-floating-configurator [hidden]="true" />
-<div
-    class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden">
-    <div class="flex flex-col items-center justify-center">
-        <div class="login-wrapper">
-            <div class="login-content w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20">
-                <div class="text-center mb-8">
-                    <img src="assets/layout/images/{{layoutService.isDarkTheme() ? 'logo-white' : 'logo-dark'}}.svg"
-                        alt="Authenticator UI logo" class="mb-8 w-32 shrink-0 mx-auto">
-                    <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">Welcome</div>
-                    <span class="text-muted-color font-medium">Sign in to continue</span>
-                </div>
+<app-auth-dynamic-content title="Welcome" subtitle="Sign in to continue">
+    <form [formGroup]="form">
+        <label for="username1"
+            class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Username</label>
+        <input id="username1" type="text" placeholder="Username" pInputText formControlName="username" maxlength="150"
+            (keypress)="onInputEnter($event)" class="w-full md:w-[30rem] " />
+        <br>
+        <app-form-field-error [form]="form.get('username')"></app-form-field-error>
+        <div class="mb-8"></div>
 
-                <div>
-                    <form [formGroup]="form">
-                        <label for="username1"
-                            class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Username</label>
-                        <input id="username1" type="text" placeholder="Username" pInputText formControlName="username"
-                            maxlength="150" (keypress)="onInputEnter($event)" class="w-full md:w-[30rem] " />
-                        <br>
-                        <app-form-field-error [form]="form.get('username')"></app-form-field-error>
-                        <div class="mb-8"></div>
+        <label for="password1"
+            class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Password</label>
+        <p-password id="password1" placeholder="Password" formControlName="password" maxLength="30"
+            (keypress)="onInputEnter($event)" [toggleMask]="true" [fluid]="true" [feedback]="false"
+            [style]="{'width':'100%'}"></p-password>
+        <app-form-field-error [form]="form.get('password')"></app-form-field-error>
+        <div class="mb-4"></div>
+    </form>
 
-                        <label for="password1"
-                            class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Password</label>
-                        <p-password id="password1" placeholder="Password" formControlName="password" maxLength="30"
-                            (keypress)="onInputEnter($event)" [toggleMask]="true" [fluid]="true" [feedback]="false"
-                            [style]="{'width':'100%'}"></p-password>
-                        <app-form-field-error [form]="form.get('password')"></app-form-field-error>
-                        <div class="mb-4"></div>
-                    </form>
-
-                    <div class="flex items-center justify-between mt-2 mb-8 gap-8">
-                        <a class="font-medium no-underline ml-2 text-right cursor-pointer text-primary"
-                            [routerLink]="['/new']">
-                            Create your account here
-                        </a>
-                        <a class="font-medium no-underline ml-2 text-right cursor-pointer text-primary"
-                            [routerLink]="['/forgot']">
-                            Forgot password?
-                        </a>
-                    </div>
-                    <p-button label="Sign In" styleClass="w-full" [disabled]="!this.form.valid"
-                        (click)="logInto()"></p-button>
-                </div>
-            </div>
-        </div>
+    <div class="flex items-center justify-between mt-2 mb-8 gap-8">
+        <a class="font-medium no-underline ml-2 text-right cursor-pointer text-primary" [routerLink]="['/new']">
+            Create your account here
+        </a>
+        <a class="font-medium no-underline ml-2 text-right cursor-pointer text-primary" [routerLink]="['/forgot']">
+            Forgot password?
+        </a>
     </div>
-</div>
+    <p-button label="Sign In" styleClass="w-full" [disabled]="!this.form.valid" (click)="logInto()"></p-button>
+</app-auth-dynamic-content>
