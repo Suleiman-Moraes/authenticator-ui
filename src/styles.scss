@@ -8,3 +8,33 @@
 .c-invisible {
     display: none;
 }
+
+.color-primary {
+    color: var(--primary-color);
+}
+
+.cssInput {
+    width: 100%;
+    padding: 10.5px !important;
+    margin-bottom: 10px !important;
+}
+
+.cssInputComponentPrimeNg {
+    width: 100%;
+}
+
+.cssInputPrimeNg {
+    padding: 10.5px;
+}
+
+.cardForms {
+    border-radius: 12px;
+}
+
+.text {
+    font-family: var(--font-family);
+    font-feature-settings: var(--font-feature-settings, normal);
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+}

@@ -2,7 +2,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { RippleModule } from 'primeng/ripple';
 import { ToolbarModule } from 'primeng/toolbar';
+import { AppFloatingConfigurator } from 'src/app/layout/component/app.floatingconfigurator';
 import { BaseResourceUtilComponent } from '../base-resource-util/base-resource-util.component';
 
 @Component({
@@ -12,7 +14,9 @@ import { BaseResourceUtilComponent } from '../base-resource-util/base-resource-u
         ButtonModule,
         ToolbarModule,
         RouterModule,
-        ConfirmPopupModule
+        ConfirmPopupModule,
+        RippleModule,
+        AppFloatingConfigurator
     ],
     templateUrl: './form-head.component.html',
     styleUrl: './form-head.component.scss'
