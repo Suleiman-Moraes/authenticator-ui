@@ -3,10 +3,10 @@
         <app-input class="col-12 md:col-6" for-name="username" name="Login" [form]="form" maxlength="150">
         </app-input>
         @if (showPassword) {
-        <app-input-template for-name="password" name="Senha" [form]="form" class="col-12 md:col-6">
+        <app-input-template for-name="password" name="Senha" [form]="form" class="col-12 md:col-6 mbs">
             <p-password placeholder="Senha" title="Senha" type="text" id="password" formControlName="password"
                 (blur)="onBlur('password')" maxlength="30" [toggleMask]="true" [style]="{'width':'100%'}"
-                inputStyleClass="cssInput" />
+                inputStyleClass="cssInputComponentPrimeNg"/>
         </app-input-template>
         }
         @if (showProfileSelect) {

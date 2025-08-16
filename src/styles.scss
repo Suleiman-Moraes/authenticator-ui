@@ -4,6 +4,11 @@
 @use 'primeicons/primeicons.css';
 @use './assets/demo/demo.scss';
 
+@media (min-width: 961px) { .p-column-title { display: none; } }
+
+:root {
+    --margin-standard: 10px;
+}
 
 .c-invisible {
     display: none;
@@ -15,8 +20,11 @@
 
 .cssInput {
     width: 100%;
-    padding: 10.5px !important;
-    margin-bottom: 10px !important;
+    margin-bottom: var(--margin-standard) !important;
+}
+
+.mbs {
+    margin-bottom: var(--margin-standard) !important;
 }
 
 .cssInputComponentPrimeNg {
@@ -24,7 +32,7 @@
 }
 
 .cssInputPrimeNg {
-    padding: 10.5px;
+    padding: var(--margin-standard) !important;
 }
 
 .cardForms {
