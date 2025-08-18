@@ -1,12 +1,12 @@
 import { Routes } from "@angular/router";
-import { authGuard } from "src/app/shared/security/auth.guard";
 import { HomeComponent } from "./home/home.component";
 import { UserChangePasswordComponent } from "./user-change-password/user-change-password.component";
 
 export const pagesAuthorizedRoutes: Routes = [
-    { path: '', component: HomeComponent, canActivate: [authGuard] },
+    { path: '', component: HomeComponent },
     { path: 'change-password', title: 'Change Password', component: UserChangePasswordComponent },
-     { path: 'person', loadChildren: () => import('./person/person.routes').then((m) => m.personRoutes) },
+    { path: 'person', loadChildren: () => import('./person/person.routes').then((m) => m.personRoutes) },
+    { path: 'proposal', loadChildren: () => import('./proposal/proposal.routes').then((m) => m.proposalRoutes) },
 
     // { path: '', component: HomeComponent, canActivate: [authGuard], data: { roles: [Role.ROLE_ROOT] } },
 ];

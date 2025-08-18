@@ -1,12 +1,8 @@
-import { NgClass } from '@angular/common';
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-description-list',
     standalone: true,
-    imports: [
-        NgClass
-    ],
     templateUrl: './description-list.component.html',
     styleUrl: './description-list.component.scss'
 })

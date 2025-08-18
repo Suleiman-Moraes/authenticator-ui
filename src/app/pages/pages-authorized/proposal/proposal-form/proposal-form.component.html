@@ -1,0 +1,47 @@
+<p-toast></p-toast>
+<p-confirmDialog key="confirmAfterSave"></p-confirmDialog>
+<div class="grid">
+    <div class="col-12">
+        <p-card styleClass="cardForms">
+            <app-form-head [complement]="complement" [title]="pageTitle" (save)="submitForm()" />
+            <br>
+            <p-fieldset [toggleable]="true" [collapsed]="false">
+                <ng-template pTemplate="header">
+                    <div class="flex align-items-center gap-2 px-2">
+                        <span class="font-bold">Informações</span>
+                        <i class="pi pi-info-circle"></i>
+                    </div>
+                </ng-template>
+                <app-enterprise-form-recycle [form]="form.get('enterprise')">
+                </app-enterprise-form-recycle>
+            </p-fieldset>
+            <br>
+            <p-fieldset [toggleable]="true" [collapsed]="false">
+                <ng-template pTemplate="header">
+                    <div class="flex align-items-center gap-2 px-2">
+                        <span class="font-bold">Proposta</span>
+                        <i class="pi pi-money-bill"></i>
+                    </div>
+                </ng-template>
+
+                <app-description-list [items]="items"></app-description-list>
+            </p-fieldset>
+            <br>
+            <p-fieldset [toggleable]="true" [collapsed]="false">
+                <ng-template pTemplate="header">
+                    <div class="flex align-items-center gap-2 px-2">
+                        <span class="font-bold">Diferença</span>
+                        <i class="pi pi-percentage"></i>
+                    </div>
+                </ng-template>
+
+                <app-description-list [items]="itemsDifference"></app-description-list>
+            </p-fieldset>
+            <br>
+            <app-condition-form-array [conditions]="form.get('conditions')" (amountChanged)="onAmountChanged($event)">
+            </app-condition-form-array>
+            <br>
+            <app-form-footer (save)="submitForm()" />
+        </p-card>
+    </div>
+</div>
