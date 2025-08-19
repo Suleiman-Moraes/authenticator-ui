@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { errorMessages } from './error-messages';
 
 @Component({
     selector: 'app-form-field-error',
@@ -27,9 +28,6 @@ export class FormFieldErrorComponent {
         if (this.form?.errors?.required) {
             return "Dado Obrigatório";
         }
-        if (this.form?.errors?.withoutSpace) {
-            return "Dado Obrigatório";
-        }
         else if (this.form?.errors?.maxlength) {
             const requiredLenght = this.form?.errors?.maxlength.requiredLength;
             return `Deve ter no máximo ${requiredLenght} caracteres`;
@@ -46,17 +44,30 @@ export class FormFieldErrorComponent {
         }
 
         //Custom
-        else if (this.form?.errors?.customizado) {
-            return `Erro customizado`;
+        else if (this.form?.errors?.withoutSpace) {
+            return "Dado Obrigatório";
         }
-        else if (this.form?.errors?.cpfValid) {
-            return `CPF Inválido`;
+        else if (this.form?.errors?.positive) {
+            return "Valor deve ser positivo";
         }
-        else if (this.form?.errors?.inscricaoEstadualValid) {
-            return `Inscrição Estadual Inválida`;
+        else if (this.form?.errors?.positiveOrZero) {
+            return "Valor deve ser positivo ou zero";
         }
-        else if (this.form?.errors?.cnpjValid) {
-            return `CNPJ Inválido`;
+        else if (this.form?.errors?.futureOrPresent) {
+            return "Data deve ser futura ou atual";
+        }
+        else if (this.form?.errors?.enumValidator) {
+            return "Valor inválido";
+        }
+
+        else {
+            let message = 'Erro';
+            Object.keys(errorMessages).forEach(key => {
+                if (this.form?.errors?.[key]) {
+                    message = errorMessages[key];
+                }
+            });
+            return message;
         }
     }
 

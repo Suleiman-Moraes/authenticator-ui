@@ -7,7 +7,9 @@
                 <p-sortIcon [field]="entry[0]"></p-sortIcon>
             </th>
             }
-            <th>Ações</th>
+            @if (showAction) {
+                <th>Ações</th>
+            }
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-element let-columns="columns">
@@ -17,22 +19,33 @@
                     @case ('currency') {
                         <td><span class="p-column-title">{{ entry[1] }}</span>{{ element[entry[0]] | currency: 'BRL' }}</td>
                     }
+                    @case ('currency') {
+                        <td><span class="p-column-title">{{ entry[1] }}</span>{{ element[entry[0]] | number: '1.1-3' }}</td>
+                    }
+                    @case ('date') {
+                        <td><span class="p-column-title">{{ entry[1] }}</span>{{ element[entry[0]] | date: 'dd/MM/yyyy' }}</td>
+                    }
                     @default {
                         <td><span class="p-column-title">{{ entry[1] }}</span>{{ element[entry[0]] || '-' }}</td>
                     }
                 }
 
             }
-            <td><span class="p-column-title">Ações</span>
-                @if (enableDisable) {
-                    <button pButton icon="pi pi-check" type="button" title="Enable" class="p-button-success mr-2"></button>
-                    <button pButton icon="pi pi-times" type="button" title="Disable" class="p-button-danger mr-2"></button>
-                }
-                @if (isDelete) {
-                    <button pButton icon="pi pi-trash" type="button" title="Delete" class="p-button-danger mr-2"></button>
-                }
-                <button pButton icon="pi pi-pencil" type="button" title="Edit" class="mr-2" [routerLink]="['edit', element.key]"></button>
-            </td>
+            @if (showAction) {
+                <td>
+                    <span class="p-column-title">Ações</span>
+                    @if (enableDisable) {
+                        <button pButton icon="pi pi-check" type="button" title="Enable" class="p-button-success mr-2"></button>
+                        <button pButton icon="pi pi-times" type="button" title="Disable" class="p-button-danger mr-2"></button>
+                    }
+                    @if (isDelete) {
+                        <button pButton icon="pi pi-trash" type="button" title="Delete" class="p-button-danger mr-2"></button>
+                    }
+                    @if (isEdit) {
+                        <button pButton icon="pi pi-pencil" type="button" title="Edit" class="mr-2" [routerLink]="['edit', element.key]"></button>
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-table>

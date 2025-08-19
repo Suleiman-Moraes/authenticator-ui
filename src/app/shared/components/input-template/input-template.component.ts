@@ -9,7 +9,7 @@ import { FormFieldErrorComponent } from '../form-field-error/form-field-error.co
         FormFieldErrorComponent
     ],
     template: `
-    <div class="field">
+    <div class="field mbs">
         <label [for]="forName" id="label-of-{{forName}}" class="block text-900 text-lg font-medium">
             {{ name }}
         </label>

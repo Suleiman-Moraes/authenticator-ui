@@ -1,5 +1,6 @@
-<div class="grid">
-    <div class="col-12">
+<div class="grid grid-cols-12 gap-4">
+    <div class="col-span-12 md:col-span-2"></div>
+    <div class="col-span-12 md:col-span-8">
         <p-card styleClass="cardForms">
             <app-form-head [show-login-btn]="true" [show-home-btn]="false" [show-list-btn]="false"
                 title="Criando nova conta" (save)="submitForm()" />
@@ -8,5 +9,6 @@
             <app-form-footer (save)="submitForm()" />
         </p-card>
     </div>
+    <div class="col-span-12 md:col-span-2"></div>
 </div>
 <p-confirmDialog key="confirmAfterSave"></p-confirmDialog>

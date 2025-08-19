@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
     envName: 'PROD',
-    apiURLBase: 'https://authenticator-q7ab.onrender.com',
-    basicToken: "d2ViOjEyMzQ1Ng=="
+    apiURLBase: 'API_URL_PLACEHOLDER',
+    basicToken: 'BASIC_TOKEN_PLACEHOLDER'
 };
