@@ -1,5 +1,10 @@
 {
     "Protótipo": "Protótipo",
+    "user": {
+        "username": "Usuário",
+        "password": "Senha",
+        "login": "Entrar"
+    },
     "primeng": {
         "today": "Hoje",
         "clear": "Limpar",

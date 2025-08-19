@@ -1,0 +1,19 @@
+<app-floating-configurator [hidden]="true" />
+<div
+    class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden">
+    <div class="flex flex-col items-center justify-center">
+        <div class="login-wrapper">
+            <div class="login-content w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20">
+                <div class="text-center mb-8">
+                    <img src="assets/layout/images/{{layoutService.isDarkTheme() ? 'logo-white' : 'logo-dark'}}.svg"
+                        alt="Authenticator UI logo" class="mb-8 w-32 shrink-0 mx-auto">
+                    <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">{{ title }}</div>
+                    <span class="text-muted-color font-medium">{{ subtitle }}</span>
+                </div>
+                <div>
+                    <ng-content></ng-content>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,13 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
 import { BaseResourceUtilComponent } from 'src/app/shared/components/base-resource-util/base-resource-util.component';
 import { FormFieldErrorComponent } from 'src/app/shared/components/form-field-error/form-field-error.component';
 import { UserResetPasswordDTO } from 'src/app/shared/model/user/user-reset-password-dto.model';
 import { UserMeService } from 'src/app/shared/service/user-me.service';
+import { AuthDynamicContentComponent } from '../../management/login/auth-dynamic-content/auth-dynamic-content.component';
 
 @Component({
     selector: 'app-forgot-password',
@@ -20,17 +23,20 @@ import { UserMeService } from 'src/app/shared/service/user-me.service';
         FormsModule,
         RouterModule,
         ReactiveFormsModule,
-        FormFieldErrorComponent
+        FormFieldErrorComponent,
+        RippleModule,
+        AuthDynamicContentComponent,
+        ToastModule
     ],
     templateUrl: './forgot-password.component.html',
-    styleUrl: './forgot-password.component.scss'
+    styleUrl: './forgot-password.component.scss',
+    providers: [ConfirmationService]
 })
 export class ForgotPasswordComponent extends BaseResourceUtilComponent implements OnInit {
 
     form!: FormGroup;
 
     constructor(
-        public layoutService: LayoutService,
         private userMeService: UserMeService
     ) {
         super();
@@ -51,6 +57,12 @@ export class ForgotPasswordComponent extends BaseResourceUtilComponent implement
         else {
             this.markAllAsTouchedAndAsDirty(this.form);
             this.loading = false;
+        }
+    }
+
+    onInputEnter(event: any) {
+        if (event.key == 'Enter') {
+            this.resetPassword();
         }
     }
 }

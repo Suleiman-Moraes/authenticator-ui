@@ -2,17 +2,19 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
 import { BaseResourceUtilComponent } from 'src/app/shared/components/base-resource-util/base-resource-util.component';
 import { FormFieldErrorComponent } from 'src/app/shared/components/form-field-error/form-field-error.component';
 import { UserResetPasswordTokenDTO } from 'src/app/shared/model/user/user-reset-password-token-dto.model';
 import { UserMeService } from 'src/app/shared/service/user-me.service';
+import { AuthDynamicContentComponent } from '../../management/login/auth-dynamic-content/auth-dynamic-content.component';
 
 @Component({
     selector: 'app-reset-password',
-    standalone: true,
     imports: [
         CommonModule,
         ButtonModule,
@@ -20,17 +22,20 @@ import { UserMeService } from 'src/app/shared/service/user-me.service';
         PasswordModule,
         RouterModule,
         ReactiveFormsModule,
-        FormFieldErrorComponent
+        FormFieldErrorComponent,
+        RippleModule,
+        AuthDynamicContentComponent,
+        ToastModule
     ],
     templateUrl: './reset-password.component.html',
-    styleUrl: './reset-password.component.scss'
+    styleUrl: './reset-password.component.scss',
+    providers: [ConfirmationService]
 })
 export class ResetPasswordComponent extends BaseResourceUtilComponent implements OnInit {
 
     form!: FormGroup;
 
     constructor(
-        public layoutService: LayoutService,
         private userMeService: UserMeService,
         private route: ActivatedRoute
     ) {

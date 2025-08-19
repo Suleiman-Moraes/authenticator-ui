@@ -3,15 +3,17 @@ import { Component } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { BaseResourceUtilComponent } from 'src/app/shared/components/base-resource-util/base-resource-util.component';
 import { FormFieldErrorComponent } from 'src/app/shared/components/form-field-error/form-field-error.component';
+import { AuthDynamicContentComponent } from '../../management/login/auth-dynamic-content/auth-dynamic-content.component';
 
 @Component({
     selector: 'app-login',
@@ -26,7 +28,10 @@ import { FormFieldErrorComponent } from 'src/app/shared/components/form-field-er
         RouterModule,
         ToastModule,
         ReactiveFormsModule,
-        FormFieldErrorComponent
+        FormFieldErrorComponent,
+        RippleModule,
+        AuthDynamicContentComponent,
+        TranslatePipe
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',
@@ -39,7 +44,6 @@ export class LoginComponent extends BaseResourceUtilComponent {
     form!: FormGroup;
 
     constructor(
-        public layoutService: LayoutService,
         private route: ActivatedRoute
     ) {
         super();
