@@ -2,16 +2,16 @@
 <app-auth-dynamic-content title="Welcome" subtitle="Sign in to continue">
     <form [formGroup]="form">
         <label for="username1"
-            class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Username</label>
-        <input id="username1" type="text" placeholder="Username" pInputText formControlName="username" maxlength="150"
+            class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">{{ 'user.username' | translate }}</label>
+        <input id="username1" type="text" placeholder="{{ 'user.username' | translate }}" pInputText formControlName="username" maxlength="150"
             (keypress)="onInputEnter($event)" class="w-full md:w-[30rem] " />
         <br>
         <app-form-field-error [form]="form.get('username')"></app-form-field-error>
         <div class="mb-8"></div>
 
         <label for="password1"
-            class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Password</label>
-        <p-password id="password1" placeholder="Password" formControlName="password" maxLength="30"
+            class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">{{ 'user.password' | translate }}</label>
+        <p-password id="password1" placeholder="{{ 'user.password' | translate }}" formControlName="password" maxLength="30"
             (keypress)="onInputEnter($event)" [toggleMask]="true" [fluid]="true" [feedback]="false"
             [style]="{'width':'100%'}"></p-password>
         <app-form-field-error [form]="form.get('password')"></app-form-field-error>

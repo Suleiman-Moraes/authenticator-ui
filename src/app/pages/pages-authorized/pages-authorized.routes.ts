@@ -7,6 +7,7 @@ export const pagesAuthorizedRoutes: Routes = [
     { path: 'change-password', title: 'Change Password', component: UserChangePasswordComponent },
     { path: 'person', loadChildren: () => import('./person/person.routes').then((m) => m.personRoutes) },
     { path: 'proposal', loadChildren: () => import('./proposal/proposal.routes').then((m) => m.proposalRoutes) },
+    { path: 'prototype', loadChildren: () => import('./prototype/prototype.routes').then((m) => m.prototypeRoutes) }
 
     // { path: '', component: HomeComponent, canActivate: [authGuard], data: { roles: [Role.ROLE_ROOT] } },
 ];

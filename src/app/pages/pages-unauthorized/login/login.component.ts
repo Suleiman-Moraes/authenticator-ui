@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -29,7 +30,8 @@ import { AuthDynamicContentComponent } from '../../management/login/auth-dynamic
         ReactiveFormsModule,
         FormFieldErrorComponent,
         RippleModule,
-        AuthDynamicContentComponent
+        AuthDynamicContentComponent,
+        TranslatePipe
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',
